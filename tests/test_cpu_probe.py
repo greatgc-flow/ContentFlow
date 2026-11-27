@@ -37,6 +37,18 @@ class NativeMediaTests(unittest.TestCase):
                                  manifest["files"][name])
             self.assertEqual(invoke("verify").returncode, 0)
             self.assertNotEqual(invoke("render").returncode, 0)
+            # Resealing a placeholder thumbnail must still fail the independent visual oracle.
+            thumbnail = dest / "thumbnail.png"
+            marker = dest / "manifest.json"
+            original_png, original_marker = thumbnail.read_bytes(), marker.read_bytes()
+            subprocess.run([str(BINARY), "-v", "error", "-y", "-f", "lavfi", "-i",
+                            "color=black:size=1080x1920", "-frames:v", "1", "-threads", "1",
+                            str(thumbnail)], check=True, timeout=20)
+            manifest["files"]["thumbnail.png"] = hashlib.sha256(thumbnail.read_bytes()).hexdigest()
+            marker.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+            self.assertNotEqual(invoke("verify").returncode, 0)
+            thumbnail.write_bytes(original_png)
+            marker.write_bytes(original_marker)
             (dest / "captions.srt").write_text("stale", encoding="ascii")
             self.assertNotEqual(invoke("verify").returncode, 0)
             self.assertEqual((dest / "captions.srt").read_text(), "stale")
