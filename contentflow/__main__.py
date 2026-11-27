@@ -5,18 +5,30 @@ import sys
 from pathlib import Path
 from uuid import uuid4
 
+from .brief import fixture_brief
 from .domain import MAX_BYTES, decode, digest
 from .workflow import plan
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="contentflow")
-    run = parser.add_subparsers(dest="command", required=True).add_parser("run")
+    commands = parser.add_subparsers(dest="command", required=True)
+    brief = commands.add_parser("brief").add_subparsers(required=True).add_parser("preview")
+    brief.add_argument("--json", action="store_true")
+    run = commands.add_parser("run")
     run.add_argument("--workflow", type=Path, required=True)
     run.add_argument("--dry-run", action="store_true", required=True)
     run.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
     envelope = {"request_id": str(uuid4()), "warnings": []}
+    if args.command == "brief":
+        result = envelope | fixture_brief()
+        if args.json:
+            print(json.dumps(result))
+        else:
+            print(result["disclosure"])
+            print(f"Relative decrease: {result['relative_decrease_percent']}%")
+        return 0
     try:
         with args.workflow.open("rb") as stream:
             workflow = decode(stream.read(MAX_BYTES + 1))
