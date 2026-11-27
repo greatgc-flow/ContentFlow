@@ -1,0 +1,31 @@
+﻿baseline_id,refined_by,disposition
+PM-001,EPP-001,REFINED; original IDs/status preserved
+PM-002,EPP-002 EPP-003 EPP-010,REFINED; original IDs/status preserved
+PM-003,EPP-004,REFINED; original IDs/status preserved
+PM-004,EPP-005 EPP-020 EPP-027 EPP-036,REFINED; original IDs/status preserved
+PM-005,EPP-005,REFINED; original IDs/status preserved
+PM-006,EPP-006,REFINED; original IDs/status preserved
+PM-007,EPP-006 EPP-007,REFINED; original IDs/status preserved
+PM-008,EPP-012 EPP-013,REFINED; original IDs/status preserved
+PM-009,EPP-008 EPP-034,REFINED; original IDs/status preserved
+PM-010,EPP-009 EPP-010 EPP-011 EPP-021 EPP-035,REFINED; original IDs/status preserved
+PM-011,EPP-008 EPP-011 EPP-013 EPP-014 EPP-015 EPP-016 EPP-017 EPP-018,REFINED; original IDs/status preserved
+PM-012,EPP-007 EPP-015 EPP-017,REFINED; original IDs/status preserved
+PM-013,EPP-014 EPP-015 EPP-020 EPP-036,REFINED; original IDs/status preserved
+PM-014,EPP-004 EPP-016 EPP-019,REFINED; original IDs/status preserved
+PM-015,EPP-024,REFINED; original IDs/status preserved
+PM-016,EPP-018 EPP-022 EPP-023,REFINED; original IDs/status preserved
+PM-017,EPP-023 EPP-024,REFINED; original IDs/status preserved
+PM-018,EPP-004 EPP-025 EPP-026,REFINED; original IDs/status preserved
+PM-019,EPP-026 EPP-027,REFINED; original IDs/status preserved
+PM-020,EPP-025 EPP-026,REFINED; original IDs/status preserved
+PM-021,EPP-001 EPP-002 EPP-021 EPP-028 EPP-036,REFINED; original IDs/status preserved
+PM-022,EPP-033,REFINED; original IDs/status preserved
+CFI-001,EPP-029 EPP-030,REFINED; original IDs/status preserved
+CFI-002,EPP-013 EPP-029,REFINED; original IDs/status preserved
+CFI-003,EPP-028 EPP-031,REFINED; original IDs/status preserved
+CFI-004,EPP-003 EPP-023 EPP-024 EPP-030 EPP-031 EPP-035,REFINED; original IDs/status preserved
+CFI-005,EPP-032 EPP-033 EPP-035,REFINED; original IDs/status preserved
+CFI-006,EPP-030 EPP-032 EPP-034,REFINED; original IDs/status preserved
+ContentFlow v0.1 CF domain 90 req / 180 planned cases,EPP-029 EPP-030 EPP-031 EPP-032 EPP-034,PRESERVED; only host integration superseded per docs/06_INTEGRATION.md
+Local AI Rev06 R01–R09 / T01–T150,EPP-006 EPP-007 EPP-014 EPP-022 EPP-024 EPP-028 EPP-033 EPP-036,PRESERVED; WP4 split into common and domain; original gates remain

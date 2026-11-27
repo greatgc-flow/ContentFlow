@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "pack_id": "fixture-lite",
+  "version": "0.0.1-test",
+  "platform": "windows-x64",
+  "kind": "lite",
+  "runtime_compatibility": "synthetic; no real runtime",
+  "dependencies": [],
+  "source_url": "https://example.invalid/fixture.zip",
+  "license_status": "review_required",
+  "license_refs": [
+    "fixture-only"
+  ],
+  "archive_bytes": 123,
+  "installed_bytes": 456,
+  "scratch_bytes": 200,
+  "lock_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "files": [
+    {
+      "path": "app/fixture.txt",
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "bytes": 12,
+      "role": "other"
+    }
+  ],
+  "detached_signature": {
+    "key_id": "test-key-not-trusted",
+    "algorithm": "Ed25519",
+    "signature_path": "fixture.sig"
+  },
+  "test_only": true
+}

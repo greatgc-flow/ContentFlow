@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "00000000-0000-4000-8000-000000000001",
+  "project_id": "00000000-0000-4000-8000-000000000002",
+  "revision": 1,
+  "name": "Offline demonstration",
+  "niche": null,
+  "profile": "DATA",
+  "locales": [
+    "ko-KR",
+    "en-US"
+  ],
+  "timezone": "Asia/Seoul",
+  "risk": "STANDARD",
+  "network_enabled": false,
+  "data_boundary": "LOCAL_ONLY",
+  "publish_mode": "EXPORT_ONLY",
+  "monthly_cap": {
+    "amount_minor": 1.25,
+    "currency": "KRW",
+    "scale": 0
+  },
+  "providers": [
+    "fixture.local",
+    "local.ffmpeg"
+  ],
+  "revenue_routes": [
+    "AD",
+    "DIGITAL_GOOD"
+  ],
+  "source_allowlist": [],
+  "policy_revision": "fixture-policy-1",
+  "gpu_slots": 0,
+  "test_only": true
+}

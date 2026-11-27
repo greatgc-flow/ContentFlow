@@ -1,0 +1,50 @@
+# ContentFlow host integration delta — normative proposal v0.3
+
+## 1. Scope and responsibilities
+
+Engram owns physical system-root identity, trusted catalog, installed-generation pointer, exact runtime binding, app installation/removal, mutation gate/journal, update/relocation coordination, package trust and optional cooperative GPU admission. ContentFlow owns its workflow, claims and source rights, projects, artifacts, SQLite migrations, editorial review, budgets, publish/analytics adapters, domain checkpoint/export and UI/CLI/API. PeerHub remains an optional external subprocess/API for authorized tasks. Local AI remains an optional capability reference, not an install dependency. A ContentFlow-specific lifecycle adapter is not a second installer. No common manager code, registry writer or direct Engram imports in this repo.
+
+Use independently releasable app artifacts, not git clone of mutable branches or vendor self-updater. Host selection is composition-time: standalone mode receives a standalone deployment adapter; managed mode receives validated HostContext with actual SYSTEM root, installation ID, package ID, generation ID, runtime executable identities, allowed capabilities, slot/workspace refs, protocol version. App refuses mixed/foreign installation, unsupported schema/protocol or unvalidated paths. Explicit standalone mode may run the same pure domain library with local adapter; no fallback from broken managed mode. Managed mode shall not implicitly download or select host Python/Node/FFmpeg. System-root anchor is dynamic; `_sys` is default name only. Domain paths are workspace-relative; references to external originals are opaque and read-authorized, never removal targets. Existing AI slot `_sys/AI` stays unchanged, ContentFlow uses reviewed slot `ContentFlow`, future slots `packages/<id>`.
+
+## 2. Installed layout and data classes
+
+```
+SYSTEM/ContentFlow/
+  app/generations/<generation>/   # immutable app, manifest, adapter entry
+  defaults/                       # reviewed templates, no mutable secrets
+  config/                         # user configuration and policy references
+  workspaces/<workspace-id>/      # durable DB, artifact objects, project state
+  models/ packs/                  # retained model/feature data (not auto install)
+  state/                          # recovery inventory, not active pointer authority
+  cache/ logs/ backups/           # separately classified
+SYSTEM/env/python-envs/pack-contentflow-main/<env-id>/ # manager-owned isolated env
+```
+
+Immutable PROGRAM bytes are exact verified manifest members. Domain checkpoint contains DB snapshot, referenced objects and lock/manifest, pending effect identifiers and policy/schema versions, excluded secret refs and retention obligations. MODEL_DATA and USER_CONFIG remain durable by default; CACHE is disposable only if unreferenced and within owned scope. Unknown files are preserved and surfaced. No active database on network/sync location or raw WAL copy. No OS registry, global PATH/HOME, admin service, task scheduler or background process by default. Existing OS/driver/keyring dependencies must be explicit. Credentials host-bound, never transferable by default. Shared resource identity includes exact artifact digest, ABI/provider/flavor, OS and verified consumer compatibility. Never share mutable site-packages. FFmpeg and browser binaries may be shared only after exact capability/license probe; model files only if supported immutable read-only sharing and license. P0 no hard cross-pack dependencies.
+
+## 3. Host API boundary and capability behavior
+
+The shared proposal wire is pinned to the [v0.3 contract definitions](engram-package-platform-v0.3/docs/04_CONTRACTS.md), [schemas](engram-package-platform-v0.3/contracts/) and [fixtures](engram-package-platform-v0.3/fixtures/). Shape validation is not semantic admission. Pin digest/protocol in both repos before activation, reject unknown major and mismatched request/installation/op/generation/digest; no executable hook from untrusted input. Host owns catalog trust, artifact checks, apply and rollback; CF adapter exposes only declared domain operations, e.g. health, checkpoint, restore, migrate, quiesce when relevant. Adapter must not fetch, spend, enroll source, publish, self-install, modify host registry or start unrelated service. Use bounded stdio JSON; explicit executable argv/cwd, deadlines, output cap, no shell or arbitrary command. Timeout after mutation is unknown, reconcile receipt rather than rerun. Read-only shallow doctor never executes vendor code. Deep probe explicit scratch scope.
+
+| Host operation | CF contract |
+|---|---|
+| install/repair/update | Manager builds final immutable gen + locked separate env, checks exact local capabilities; health only. CF does not install dependencies. |
+| launch | Direct alias resolves manager active binding; arguments and child exit propagated. Missing/partial/corrupt/retained slots block run, no implicit install. |
+| backup/move | Stop admissions, drain owned jobs, checkpoint domain with supported SQLite backup API and hash inventory, record ambiguous remote operations; manager retains host metadata and reconstructs env. |
+| restore/clone | Validate manifest/schema/digests in isolated candidate; clone has fresh authority/identity, schedules and external effects dormant; apply deletion/rights obligations. |
+| migration/update | New schema only in staged compatible DB generation/checkpoint; health and domain oracle before publication. Rollback requires matching old program+DB, cannot undo a public post. |
+| remove/purge | Manager deletes exact owned PROGRAM/env refs; retain workspaces/models/config/backups. Purge separate verified backup and typed scope. Whole Engram uninstall must export recovery metadata outside targets or refuse. |
+
+Managed CLI `contentflow setup` delegates to generic `engram pack install contentflow` or guides user if manager not yet available. `contentflow portable` delegates host move/repair in managed mode. `contentflow pack` only controls domain feature/template/model declarations; executable/runtime installations must be approved by host. `contentflow project export` is domain data, not host backup. Preserve old `engram update --only packages` Python-library semantics; never add host-specific flags in CF. `contentflow studio` launches loopback only, session authentication and CSRF/origin checks; no remote exposure by default. All interfaces invoke same application service, not independent policies.
+
+## 4. First independent and integrated slices
+
+C1 pure domain: immutable project/source/claim/review revision, rights/time/consent and digest validation, DAG job transitions, budget reservation and outbox idempotency; no real external side effects. C2 CPU local: synthetic CSV with 100 and 75 ms, compute 25% relative decrease, show TEST_ONLY disclosure, source hash and locator; deterministic scene bundle with 15-second 1080x1920 30 fps video, owned chart SVG, authorized local narration or nonpublishable synthetic tone fixture, local pinned FFmpeg. Produce evidence brief, article, MP4, SRT, thumbnail and manifest. Verify full decode, codec/geometry/fps/duration, frame and caption bounds, actual audio, manifest hash and lineage, no external provider/socket/spend/publication. Any material unsupported claim, mismatched source revision, stale approval, bad rights, unexpected placeholder, missing caption or corrupt artifact blocks export approval. Test-only never publication-eligible. No paid provider/account needed. Exact FFmpeg build/license and narration/fixture rights require gate; no unverified binary or font redistributed. C3 host: verified package artifact, runtime port, install with AI absent; local render, backup, move/rebuild offline, restore, update failure rollback, remove/reinstall, preserve bytes and independent domain state. Both packages coexist without shared mutable env/credentials. Third synthetic package validates generic manager in Engram. P1 Studio/voice/GPU only after local capability, lease and hardware tests; P2 external provider/platform adapters only explicit approval and current terms. P3 hosted worker/SaaS separate security and business decision.
+
+## 5. Fail-safe and external authority
+
+Host install consent never authorizes content collection, model download, API use, payment, publishing, source/agent enrollment, bot or idle job. Approval binds exact actor, destination/account, revision/artifact, policy, cost cap/expiry and effect digest; edits/clone/restore/expiry invalidate. No automatic cloud fallback, no fake verified source, no auto-publish high-risk. Actual posting uses official supported API after account review; unknown remote effect reconciles or remains blocked. No scraping restrictions bypass. No revenue guarantee. Real source/rights/policy and performance evidence remains necessary. Default local CPU export-only. Cooperative GPU leases are not OS sandbox or universal cross-install scheduler; unknown foreign workloads are not killed. Actual Windows standard-user and GPU proofs remain open.
+
+## 6. Review and unresolved dependencies
+
+Engram baseline main 61076a4734d691fe917bee562a2e2bec9c7a9148, #144 e7b8e21bb6baab1fbf66a6416fb0cb8083b81318, #145 4d629e39122496986fcda4d345bcc15bb7b97ada observed draft; #145 includes #144. Recheck before RED. Existing registry publish owns lock/journal and must not be called inside another mutation; coordinated prepare/step/recovery port is not yet stable. Core ZIP collector recursively scans system tree, needs positive pack-boundary allowlist; uninstaller deletes shared data/env, preserves unknown slots by default, must preserve recovery inventory before removal. Old updater/downgrade compatibility, production trust/signature/revocation, runtime reference tracking, native FFmpeg/CPU app probe, consistent checkpoints, OS egress enforcement, target GPU and actual external platform API approval remain gates. Design/contract review is not a production security audit. No implementation or live execution claimed.

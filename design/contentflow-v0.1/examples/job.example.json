@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "00000000-0000-4000-8000-000000000001",
+  "project_id": "00000000-0000-4000-8000-000000000002",
+  "job_id": "00000000-0000-4000-8000-000000000013",
+  "workflow_id": "offline-short",
+  "workflow_revision": 1,
+  "content": {
+    "id": "00000000-0000-4000-8000-000000000007",
+    "revision": 1,
+    "digest": "c0f9ee0ece972ee4f2e0a7fd5f2cb91185335f6ec47fec9f391a4525b557bd6b"
+  },
+  "state": "QUEUED",
+  "idempotency_key": "fixture-only-job",
+  "previous_job_id": null,
+  "version": 1,
+  "lease_token": null,
+  "lease_until": null,
+  "created_at": "2026-11-28T00:00:00Z",
+  "steps": [
+    {
+      "key": "import",
+      "state": "PENDING",
+      "attempt": 0,
+      "dependency_digest": null,
+      "outputs": [],
+      "error_code": null
+    },
+    {
+      "key": "verify",
+      "state": "PENDING",
+      "attempt": 0,
+      "dependency_digest": null,
+      "outputs": [],
+      "error_code": null
+    },
+    {
+      "key": "script",
+      "state": "PENDING",
+      "attempt": 0,
+      "dependency_digest": null,
+      "outputs": [],
+      "error_code": null
+    },
+    {
+      "key": "assets",
+      "state": "PENDING",
+      "attempt": 0,
+      "dependency_digest": null,
+      "outputs": [],
+      "error_code": null
+    },
+    {
+      "key": "align",
+      "state": "PENDING",
+      "attempt": 0,
+      "dependency_digest": null,
+      "outputs": [],
+      "error_code": null
+    },
+    {
+      "key": "render",
+      "state": "PENDING",
+      "attempt": 0,
+      "dependency_digest": null,
+      "outputs": [],
+      "error_code": null
+    },
+    {
+      "key": "qc",
+      "state": "PENDING",
+      "attempt": 0,
+      "dependency_digest": null,
+      "outputs": [],
+      "error_code": null
+    },
+    {
+      "key": "review",
+      "state": "PENDING",
+      "attempt": 0,
+      "dependency_digest": null,
+      "outputs": [],
+      "error_code": null
+    },
+    {
+      "key": "export",
+      "state": "PENDING",
+      "attempt": 0,
+      "dependency_digest": null,
+      "outputs": [],
+      "error_code": null
+    }
+  ],
+  "test_only": true
+}

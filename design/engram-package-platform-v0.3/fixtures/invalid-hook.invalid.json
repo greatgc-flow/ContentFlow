@@ -1,0 +1,19 @@
+{
+  "fixture_only": true,
+  "schema_version": "1.0",
+  "protocol_version": "1.0",
+  "request_id": "fixture-request",
+  "parent_op_id": "fixture-op",
+  "installation_id": "fixture-install",
+  "package_id": "contentflow",
+  "generation": "gen-1",
+  "operation": "shell",
+  "phase": "COMMITTED",
+  "plan_digest": "b708cf42b6ebcacfaeef10f257197a1f2ed78a683011d9e15ce4430c033f05a6",
+  "scope": [
+    "PROGRAM"
+  ],
+  "deadline": "2026-11-28T01:00:00Z",
+  "working_rel": "ContentFlow/app/generations/gen-1",
+  "checkpoint_rel": null
+}

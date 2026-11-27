@@ -1,0 +1,17 @@
+﻿risk_id,risk,severity,requirement_ids,gate,control,status
+K01,Registry/journal reentrancy or torn cross-file publication,critical,EPP-007 EPP-014 EPP-015,G1/G2,"One outer lock, fixed step factories, crash injection and launch fence",OPEN
+K02,"Leak of private model, workspaces, credential in release",critical,EPP-021 EPP-031,G4/G8,Positive allowlist actual ZIP sentinel inspection,OPEN
+K03,Data loss during remove/uninstall,critical,EPP-022 EPP-025 EPP-026 EPP-027,G4,Exact ownership + verified checkpoint/export; refuse if uncertain,OPEN
+K04,Wrong trust key/artifact/license,critical,EPP-009 EPP-010 EPP-035,G3,"Production key/trust proof, pinned digest and rights",OPEN
+K05,Old updater or downgrade bypass,critical,EPP-020 EPP-036,G4,Real prior updater gate and supported version floor; no old executable guarantees,OPEN
+K06,Incompatible shared runtime breaks consumer,high,EPP-006 EPP-007 EPP-015,G1/G2,"Exact identity, isolated env, protected refs",OPEN
+K07,Migration breaks rollback or overwrites original,critical,EPP-018 EPP-022 EPP-023,G4,Compatible app/schema checkpoint and staged restore,OPEN
+K08,Unowned process terminated or duplicate worker,critical,EPP-016 EPP-033,G2/G7,"PID/start/generation, fence, no arbitrary kill",OPEN
+K09,Unauthorized network/spend/post/ingest,critical,EPP-012 EPP-034,G5/G6,"Separate domain approvals, real egress proof, no replay",OPEN
+K10,Moved path or unsafe storage/foreign slot,high,EPP-003 EPP-004 EPP-024,G4,"Physical root, no reparse, offline rebuild, source preservation",OPEN
+K11,Overengineering and Core pollution,high,EPP-013 EPP-028 EPP-029,G2/G5,"Trusted generic manager, no new marketplace/daemon, third fixture",OPEN
+K12,GPU lease incorrectly claimed host-wide,high,EPP-033,G7,Declared scope; cross-root proof or block,OPEN
+K13,Ongoing PR divergence or inflated test evidence,high,EPP-036,G0/G1,"Pin refs, separate status and actual receipt",OPEN
+K14,Missing real FFmpeg/native dependency or rights,high,EPP-030 EPP-035,G3/G5,Pinned codec build native fixture and rights review,OPEN
+K15,Copied identities trigger duplicate remote effect,critical,EPP-023 EPP-034,G4/G5,"Fresh lineage and revoke approvals, reconcile unknowns",OPEN
+K16,Plugin process assumed sandbox,critical,EPP-012 EPP-034,G3/G6,First-party trust; OS isolation independently proved,OPEN

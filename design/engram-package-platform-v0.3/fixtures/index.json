@@ -1,0 +1,146 @@
+[
+  {
+    "file": "ai.descriptor.json",
+    "schema": "descriptor.schema.json",
+    "schema_valid": true,
+    "semantic_negative": false
+  },
+  {
+    "file": "cf.descriptor.json",
+    "schema": "descriptor.schema.json",
+    "schema_valid": true,
+    "semantic_negative": false
+  },
+  {
+    "file": "gamma.descriptor.json",
+    "schema": "descriptor.schema.json",
+    "schema_valid": true,
+    "semantic_negative": false
+  },
+  {
+    "file": "cf.release.json",
+    "schema": "release_manifest.schema.json",
+    "schema_valid": true,
+    "semantic_negative": false
+  },
+  {
+    "file": "mixed.registry.json",
+    "schema": "registry.schema.json",
+    "schema_valid": true,
+    "semantic_negative": false
+  },
+  {
+    "file": "cf.plan.json",
+    "schema": "plan.schema.json",
+    "schema_valid": true,
+    "semantic_negative": false
+  },
+  {
+    "file": "cf.approval.json",
+    "schema": "approval.schema.json",
+    "schema_valid": true,
+    "semantic_negative": false
+  },
+  {
+    "file": "cf.request.json",
+    "schema": "adapter_request.schema.json",
+    "schema_valid": true,
+    "semantic_negative": false
+  },
+  {
+    "file": "cf.response.json",
+    "schema": "adapter_response.schema.json",
+    "schema_valid": true,
+    "semantic_negative": false
+  },
+  {
+    "file": "cf.checkpoint.json",
+    "schema": "checkpoint.schema.json",
+    "schema_valid": true,
+    "semantic_negative": false
+  },
+  {
+    "file": "traversal.invalid.json",
+    "schema": "descriptor.schema.json",
+    "schema_valid": false,
+    "semantic_negative": false
+  },
+  {
+    "file": "unknown-major.invalid.json",
+    "schema": "registry.schema.json",
+    "schema_valid": false,
+    "semantic_negative": false
+  },
+  {
+    "file": "bad-hash.invalid.json",
+    "schema": "release_manifest.schema.json",
+    "schema_valid": false,
+    "semantic_negative": false
+  },
+  {
+    "file": "invalid-hook.invalid.json",
+    "schema": "adapter_request.schema.json",
+    "schema_valid": false,
+    "semantic_negative": false
+  },
+  {
+    "file": "approval-forged.invalid.json",
+    "schema": "approval.schema.json",
+    "schema_valid": false,
+    "semantic_negative": false
+  },
+  {
+    "file": "authority-copy.invalid.json",
+    "schema": "checkpoint.schema.json",
+    "schema_valid": false,
+    "semantic_negative": false
+  },
+  {
+    "file": "oversized-response.invalid.json",
+    "schema": "adapter_response.schema.json",
+    "schema_valid": false,
+    "semantic_negative": false
+  },
+  {
+    "file": "bad-revision.invalid.json",
+    "schema": "plan.schema.json",
+    "schema_valid": false,
+    "semantic_negative": false
+  },
+  {
+    "file": "wrong-slot.semantic-negative.json",
+    "schema": "descriptor.schema.json",
+    "schema_valid": true,
+    "semantic_negative": true
+  },
+  {
+    "file": "missing-default.semantic-negative.json",
+    "schema": "descriptor.schema.json",
+    "schema_valid": true,
+    "semantic_negative": true
+  },
+  {
+    "file": "duplicate-profile.semantic-negative.json",
+    "schema": "descriptor.schema.json",
+    "schema_valid": true,
+    "semantic_negative": true
+  },
+  {
+    "file": "wrong-member.semantic-negative.json",
+    "schema": "release_manifest.schema.json",
+    "schema_valid": true,
+    "semantic_negative": true
+  },
+  {
+    "file": "wrong-echo.semantic-negative.json",
+    "schema": "adapter_response.schema.json",
+    "schema_valid": true,
+    "semantic_negative": true
+  },
+  {
+    "file": "retained-active.semantic-negative.json",
+    "schema": "registry.schema.json",
+    "schema_valid": true,
+    "semantic_negative": true
+  }
+]

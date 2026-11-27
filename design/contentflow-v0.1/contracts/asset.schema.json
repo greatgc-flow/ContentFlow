@@ -1,0 +1,493 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contentflow.invalid/schema/1.0/asset.json",
+  "title": "ContentFlow asset (proposed)",
+  "description": "Structural contract only. Cross-object and temporal invariants require domain validation. Synthetic examples are not releaseable.",
+  "$defs": {
+    "money": {
+      "type": "object",
+      "properties": {
+        "amount_minor": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "scale": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6
+        }
+      },
+      "required": [
+        "amount_minor",
+        "currency",
+        "scale"
+      ],
+      "additionalProperties": false
+    },
+    "revision_ref": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "digest"
+      ],
+      "additionalProperties": false
+    },
+    "rights": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "UNKNOWN",
+            "RESTRICTED",
+            "ALLOWED",
+            "EXPIRED",
+            "REVOKED"
+          ]
+        },
+        "license_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "license_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence_ref": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 16000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "READ",
+              "EXTRACT",
+              "QUOTE",
+              "TRANSFORM",
+              "COMMERCIAL",
+              "DISTRIBUTE",
+              "AI_INPUT",
+              "TRAINING"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 8,
+          "uniqueItems": true
+        },
+        "allowed_destinations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_.-]{0,95}$"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "attribution": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 16000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retention_until": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "consent_ref": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reviewed_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "license_id",
+        "license_version",
+        "evidence_ref",
+        "permissions",
+        "allowed_destinations",
+        "attribution",
+        "expires_at",
+        "retention_until",
+        "consent_ref",
+        "reviewed_at"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/revision_ref"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "excerpt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 16000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "source",
+        "locator",
+        "observed_at",
+        "excerpt"
+      ],
+      "additionalProperties": false
+    },
+    "claim": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "kind": {
+          "enum": [
+            "FACT",
+            "CALCULATION",
+            "INFERENCE",
+            "OPINION",
+            "FICTION",
+            "QUOTE"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16000
+        },
+        "material": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "UNVERIFIED",
+            "SUPPORTED",
+            "CONTESTED",
+            "STALE",
+            "REJECTED"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 16000
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "calculation": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "formula_id": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z][a-zA-Z0-9_.-]{0,95}$"
+                },
+                "inputs": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "pattern": "^[a-zA-Z][a-zA-Z0-9_.-]{0,95}$"
+                      },
+                      "value": {
+                        "type": "string",
+                        "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+                      },
+                      "unit": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 256
+                      },
+                      "as_of": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "value",
+                      "unit",
+                      "as_of"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "maxItems": 100
+                },
+                "result": {
+                  "type": "string",
+                  "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+                },
+                "unit": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 256
+                }
+              },
+              "required": [
+                "formula_id",
+                "inputs",
+                "result",
+                "unit"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "review_ref": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "statement",
+        "material",
+        "status",
+        "evidence",
+        "assumptions",
+        "calculation",
+        "review_ref"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "workspace_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "project_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "asset_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "size_bytes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "mime": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "kind": {
+      "enum": [
+        "IMAGE",
+        "AUDIO",
+        "VIDEO",
+        "FONT",
+        "CAPTION",
+        "CHART",
+        "TEXT"
+      ]
+    },
+    "duration_ms": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "provider_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z][a-zA-Z0-9_.-]{0,95}$"
+    },
+    "provider_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "parent_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/revision_ref"
+      },
+      "minItems": 0,
+      "maxItems": 500
+    },
+    "rights": {
+      "$ref": "#/$defs/rights"
+    },
+    "test_only": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "workspace_id",
+    "project_id",
+    "asset_id",
+    "revision",
+    "sha256",
+    "size_bytes",
+    "mime",
+    "kind",
+    "duration_ms",
+    "provider_id",
+    "provider_version",
+    "parent_refs",
+    "rights",
+    "test_only"
+  ],
+  "additionalProperties": false
+}

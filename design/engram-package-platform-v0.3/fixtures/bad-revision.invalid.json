@@ -1,0 +1,32 @@
+{
+  "fixture_only": true,
+  "schema_version": "1.0",
+  "op_id": "fixture-op",
+  "installation_id": "fixture-install",
+  "operation": "install",
+  "expected_pack_revision": -1,
+  "expected_runtime_revision": 1,
+  "root_fingerprint": "b708cf42b6ebcacfaeef10f257197a1f2ed78a683011d9e15ce4430c033f05a6",
+  "scope": [
+    "contentflow"
+  ],
+  "current_generation": null,
+  "target_generation": "gen-1",
+  "actions": [
+    {
+      "sequence": 1,
+      "package_id": "contentflow",
+      "action": "stage",
+      "effect_class": "PROGRAM",
+      "target_rel": "ContentFlow/app/generations/gen-1",
+      "expected_digest": "b708cf42b6ebcacfaeef10f257197a1f2ed78a683011d9e15ce4430c033f05a6"
+    }
+  ],
+  "required_bytes": 4096,
+  "risk": "normal",
+  "trust_revision": 1,
+  "policy_revision": 1,
+  "created_at": "2026-11-28T00:00:00Z",
+  "expires_at": "2026-11-28T01:00:00Z",
+  "plan_digest": "b708cf42b6ebcacfaeef10f257197a1f2ed78a683011d9e15ce4430c033f05a6"
+}

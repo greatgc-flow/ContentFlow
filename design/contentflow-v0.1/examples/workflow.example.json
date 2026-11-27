@@ -1,0 +1,179 @@
+{
+  "schema_version": "1.0",
+  "workflow_id": "offline-short",
+  "revision": 1,
+  "offline": true,
+  "steps": [
+    {
+      "key": "import",
+      "kind": "IMPORT",
+      "depends_on": [],
+      "inputs": [],
+      "outputs": [
+        "source"
+      ],
+      "optional": false,
+      "provider_id": "fixture.local",
+      "max_attempts": 1,
+      "timeout_seconds": 120,
+      "effect": "LOCAL_WRITE",
+      "gpu_slots": 0
+    },
+    {
+      "key": "verify",
+      "kind": "VERIFY",
+      "depends_on": [
+        "import"
+      ],
+      "inputs": [
+        "source"
+      ],
+      "outputs": [
+        "brief"
+      ],
+      "optional": false,
+      "provider_id": "fixture.local",
+      "max_attempts": 1,
+      "timeout_seconds": 120,
+      "effect": "LOCAL_WRITE",
+      "gpu_slots": 0
+    },
+    {
+      "key": "script",
+      "kind": "SCRIPT",
+      "depends_on": [
+        "verify"
+      ],
+      "inputs": [
+        "brief"
+      ],
+      "outputs": [
+        "script"
+      ],
+      "optional": false,
+      "provider_id": "fixture.local",
+      "max_attempts": 1,
+      "timeout_seconds": 120,
+      "effect": "LOCAL_WRITE",
+      "gpu_slots": 0
+    },
+    {
+      "key": "assets",
+      "kind": "ASSET_CREATE",
+      "depends_on": [
+        "script"
+      ],
+      "inputs": [
+        "script"
+      ],
+      "outputs": [
+        "assets"
+      ],
+      "optional": false,
+      "provider_id": "fixture.local",
+      "max_attempts": 1,
+      "timeout_seconds": 120,
+      "effect": "LOCAL_WRITE",
+      "gpu_slots": 0
+    },
+    {
+      "key": "align",
+      "kind": "ALIGN",
+      "depends_on": [
+        "assets",
+        "script"
+      ],
+      "inputs": [
+        "assets",
+        "script"
+      ],
+      "outputs": [
+        "scene_bundle"
+      ],
+      "optional": false,
+      "provider_id": "fixture.local",
+      "max_attempts": 1,
+      "timeout_seconds": 120,
+      "effect": "LOCAL_WRITE",
+      "gpu_slots": 0
+    },
+    {
+      "key": "render",
+      "kind": "RENDER",
+      "depends_on": [
+        "align"
+      ],
+      "inputs": [
+        "scene_bundle"
+      ],
+      "outputs": [
+        "video"
+      ],
+      "optional": false,
+      "provider_id": "local.ffmpeg",
+      "max_attempts": 1,
+      "timeout_seconds": 600,
+      "effect": "LOCAL_WRITE",
+      "gpu_slots": 0
+    },
+    {
+      "key": "qc",
+      "kind": "QC",
+      "depends_on": [
+        "render"
+      ],
+      "inputs": [
+        "video"
+      ],
+      "outputs": [
+        "qc_report"
+      ],
+      "optional": false,
+      "provider_id": "fixture.local",
+      "max_attempts": 1,
+      "timeout_seconds": 120,
+      "effect": "LOCAL_WRITE",
+      "gpu_slots": 0
+    },
+    {
+      "key": "review",
+      "kind": "REVIEW",
+      "depends_on": [
+        "qc"
+      ],
+      "inputs": [
+        "qc_report"
+      ],
+      "outputs": [
+        "review_record"
+      ],
+      "optional": false,
+      "provider_id": "fixture.local",
+      "max_attempts": 1,
+      "timeout_seconds": 120,
+      "effect": "LOCAL_WRITE",
+      "gpu_slots": 0
+    },
+    {
+      "key": "export",
+      "kind": "EXPORT",
+      "depends_on": [
+        "review",
+        "render"
+      ],
+      "inputs": [
+        "review_record",
+        "video"
+      ],
+      "outputs": [
+        "manifest"
+      ],
+      "optional": false,
+      "provider_id": "fixture.local",
+      "max_attempts": 1,
+      "timeout_seconds": 120,
+      "effect": "LOCAL_WRITE",
+      "gpu_slots": 0
+    }
+  ]
+}

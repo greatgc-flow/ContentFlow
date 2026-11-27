@@ -1,0 +1,20 @@
+{
+  "fixture_only": true,
+  "schema_version": "1.0",
+  "protocol_version": "1.0",
+  "request_id": "fixture-request",
+  "parent_op_id": "fixture-op",
+  "installation_id": "fixture-install",
+  "package_id": "contentflow",
+  "generation": "gen-1",
+  "operation": "health",
+  "status": "OK",
+  "findings": [],
+  "receipt": {
+    "effect_id": "fixture-effect",
+    "checkpoint_sha256": null,
+    "observed_state": "NEW",
+    "owned_process_ids": []
+  },
+  "next_action": "NONE"
+}

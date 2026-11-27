@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "export_id": "00000000-0000-4000-8000-000000000017",
+  "workspace_id": "00000000-0000-4000-8000-000000000001",
+  "content": {
+    "id": "00000000-0000-4000-8000-000000000007",
+    "revision": 1,
+    "digest": "c0f9ee0ece972ee4f2e0a7fd5f2cb91185335f6ec47fec9f391a4525b557bd6b"
+  },
+  "created_at": "2026-11-28T00:00:00Z",
+  "destination": "local",
+  "policy_revision": "fixture-policy-1",
+  "release_status": "TEST_ONLY",
+  "approval_id": null,
+  "artifacts": [
+    {
+      "role": "ARTICLE",
+      "relative_path": "article.md",
+      "sha256": "c43c5892f0e42121d51d3c1934fbcf856a6dc5ee5a9a48b5befae1ed0fb66ddd",
+      "size_bytes": 30,
+      "mime": "text/markdown"
+    }
+  ],
+  "disclosures": [
+    "TEST_ONLY; illustrative hashes, not actual rendered media."
+  ],
+  "test_only": true
+}

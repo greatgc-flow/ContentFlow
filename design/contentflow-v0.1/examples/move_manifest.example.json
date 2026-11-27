@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "snapshot_id": "fixture-snapshot",
+  "workspace_id": "fixture-workspace",
+  "origin_instance_id": "fixture-instance",
+  "created_at": "2026-11-28T00:00:00Z",
+  "app_version": "0.0.1-test",
+  "db_schema_version": 1,
+  "db_snapshot": {
+    "path": "db/snapshot.sqlite",
+    "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "bytes": 512
+  },
+  "objects": [
+    {
+      "key": "objects/sha256/dd/dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "bytes": 42
+    }
+  ],
+  "deletion_journal_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "unresolved_remote_intent_ids": [
+    "fixture-unknown"
+  ],
+  "credentials_included": false,
+  "side_effect_authority_transfer": false,
+  "activation_required": true,
+  "test_only": true
+}

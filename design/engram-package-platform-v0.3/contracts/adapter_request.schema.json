@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://engram.invalid/epp/v03/adapter_request.schema.json",
+  "title": "adapter_request TEST_ONLY proposed contract; not production authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "fixture_only": {
+      "const": true
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "protocol_version": {
+      "const": "1.0"
+    },
+    "request_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "parent_op_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "installation_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "package_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,47}$"
+    },
+    "generation": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "operation": {
+      "enum": [
+        "probe",
+        "quiesce",
+        "checkpoint",
+        "migrate",
+        "restore",
+        "relocate",
+        "health",
+        "resume",
+        "stop"
+      ]
+    },
+    "phase": {
+      "enum": [
+        "STAGED",
+        "VERIFIED",
+        "DRAINED",
+        "APPLYING",
+        "COMMITTED",
+        "RECOVERY"
+      ]
+    },
+    "plan_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "scope": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "PROGRAM",
+          "RUNTIME_REF",
+          "DOMAIN_DATA",
+          "USER_CONFIG",
+          "SECRET_REF",
+          "MODEL_DATA",
+          "CACHE",
+          "LOG",
+          "BACKUP",
+          "EXTERNAL_REF"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 12,
+      "uniqueItems": true
+    },
+    "deadline": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "working_rel": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-][A-Za-z0-9_.-]*(/[A-Za-z0-9_-][A-Za-z0-9_.-]*)*$",
+      "maxLength": 240
+    },
+    "checkpoint_rel": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-][A-Za-z0-9_.-]*(/[A-Za-z0-9_-][A-Za-z0-9_.-]*)*$",
+          "maxLength": 240
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "fixture_only",
+    "schema_version",
+    "protocol_version",
+    "request_id",
+    "parent_op_id",
+    "installation_id",
+    "package_id",
+    "generation",
+    "operation",
+    "phase",
+    "plan_digest",
+    "scope",
+    "deadline",
+    "working_rel",
+    "checkpoint_rel"
+  ]
+}

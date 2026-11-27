@@ -1,0 +1,24 @@
+{
+  "fixture_only": true,
+  "schema_version": "1.0",
+  "checkpoint_id": "fixture-checkpoint",
+  "installation_id": "fixture-install",
+  "package_id": "contentflow",
+  "generation": "gen-1",
+  "domain_schema": 1,
+  "created_at": "2026-11-28T00:00:00Z",
+  "release_manifest_sha256": "b708cf42b6ebcacfaeef10f257197a1f2ed78a683011d9e15ce4430c033f05a6",
+  "runtime_lock_sha256": "b708cf42b6ebcacfaeef10f257197a1f2ed78a683011d9e15ce4430c033f05a6",
+  "inventory_sha256": "b708cf42b6ebcacfaeef10f257197a1f2ed78a683011d9e15ce4430c033f05a6",
+  "pending_intent_ids": [
+    "fixture-pending"
+  ],
+  "omitted_classes": [
+    "SECRET_REF",
+    "EXTERNAL_REF"
+  ],
+  "credential_transfer": false,
+  "external_authority_transfer": false,
+  "source_deactivation": "NOT_APPLICABLE",
+  "restore_verified": false
+}

@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contentflow.invalid/contracts/move_manifest.schema.json",
+  "title": "move_manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workspace_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "origin_instance_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "app_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "db_schema_version": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "db_snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Logical relative path. Domain must additionally validate normalized containment, reparse points, device names, Unicode collisions, and traversal."
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "bytes"
+      ]
+    },
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Logical relative path. Domain must additionally validate normalized containment, reparse points, device names, Unicode collisions, and traversal."
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "key",
+          "sha256",
+          "bytes"
+        ]
+      },
+      "minItems": 0
+    },
+    "deletion_journal_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "unresolved_remote_intent_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "credentials_included": {
+      "const": false
+    },
+    "side_effect_authority_transfer": {
+      "const": false
+    },
+    "activation_required": {
+      "const": true
+    },
+    "test_only": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "snapshot_id",
+    "workspace_id",
+    "origin_instance_id",
+    "created_at",
+    "app_version",
+    "db_schema_version",
+    "db_snapshot",
+    "objects",
+    "deletion_journal_sha256",
+    "unresolved_remote_intent_ids",
+    "credentials_included",
+    "side_effect_authority_transfer",
+    "activation_required",
+    "test_only"
+  ]
+}

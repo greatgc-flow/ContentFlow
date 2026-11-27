@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "00000000-0000-4000-8000-000000000001",
+  "project_id": "00000000-0000-4000-8000-000000000002",
+  "brief_id": "00000000-0000-4000-8000-000000000005",
+  "revision": 1,
+  "title": "합성 데이터로 처리시간 비교",
+  "audience": "개발 자동화 학습자",
+  "angle": "Explain relative decrease, not actual benchmark",
+  "original_contribution": "Own worked calculation and explanation of denominator",
+  "claims": [
+    {
+      "id": "00000000-0000-4000-8000-000000000004",
+      "kind": "CALCULATION",
+      "statement": "The synthetic processing time decreases by 25%.",
+      "material": true,
+      "status": "SUPPORTED",
+      "evidence": [
+        {
+          "source": {
+            "id": "00000000-0000-4000-8000-000000000003",
+            "revision": 1,
+            "digest": "3c91fa54ba63d7b31cf001d893b31cbe7cbcd7ad069f6f2a5935b5f4ba16c3e0"
+          },
+          "locator": "synthetic rows 1-2",
+          "observed_at": "2026-11-28T00:00:00Z",
+          "excerpt": "baseline=100; optimized=75"
+        }
+      ],
+      "assumptions": [
+        "Synthetic numbers, not a real benchmark."
+      ],
+      "calculation": {
+        "formula_id": "relative_decrease",
+        "inputs": [
+          {
+            "name": "baseline",
+            "value": "100",
+            "unit": "ms",
+            "as_of": null
+          },
+          {
+            "name": "optimized",
+            "value": "75",
+            "unit": "ms",
+            "as_of": null
+          }
+        ],
+        "result": "25",
+        "unit": "percent"
+      },
+      "review_ref": null
+    }
+  ],
+  "source_refs": [
+    {
+      "id": "00000000-0000-4000-8000-000000000003",
+      "revision": 1,
+      "digest": "3c91fa54ba63d7b31cf001d893b31cbe7cbcd7ad069f6f2a5935b5f4ba16c3e0"
+    }
+  ],
+  "risk": "STANDARD",
+  "disclosures": [
+    "TEST_ONLY: synthetic data, not real performance."
+  ],
+  "cta": null,
+  "review_status": "DRAFT",
+  "test_only": true
+}

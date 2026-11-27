@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://engram.invalid/epp/v03/plan.schema.json",
+  "title": "plan TEST_ONLY proposed contract; not production authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "fixture_only": {
+      "const": true
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "op_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "installation_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "operation": {
+      "enum": [
+        "install",
+        "update",
+        "repair",
+        "remove",
+        "backup",
+        "restore",
+        "rollback",
+        "relocate",
+        "purge",
+        "core-update",
+        "uninstall"
+      ]
+    },
+    "expected_pack_revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "expected_runtime_revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "root_fingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "scope": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]{0,47}$"
+      },
+      "minItems": 1,
+      "maxItems": 32,
+      "uniqueItems": true
+    },
+    "current_generation": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "target_generation": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sequence": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "package_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,47}$"
+          },
+          "action": {
+            "enum": [
+              "verify",
+              "stage",
+              "probe",
+              "drain",
+              "checkpoint",
+              "migrate",
+              "publish",
+              "health",
+              "remove-owned",
+              "retain",
+              "restore",
+              "relocate",
+              "cleanup"
+            ]
+          },
+          "effect_class": {
+            "enum": [
+              "PROGRAM",
+              "RUNTIME_REF",
+              "DOMAIN_DATA",
+              "USER_CONFIG",
+              "SECRET_REF",
+              "MODEL_DATA",
+              "CACHE",
+              "LOG",
+              "BACKUP",
+              "EXTERNAL_REF"
+            ]
+          },
+          "target_rel": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-][A-Za-z0-9_.-]*(/[A-Za-z0-9_-][A-Za-z0-9_.-]*)*$",
+            "maxLength": 240
+          },
+          "expected_digest": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "sequence",
+          "package_id",
+          "action",
+          "effect_class",
+          "target_rel",
+          "expected_digest"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 256
+    },
+    "required_bytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "risk": {
+      "enum": [
+        "normal",
+        "migration",
+        "purge",
+        "trust-change"
+      ]
+    },
+    "trust_revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "policy_revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "plan_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "required": [
+    "fixture_only",
+    "schema_version",
+    "op_id",
+    "installation_id",
+    "operation",
+    "expected_pack_revision",
+    "expected_runtime_revision",
+    "root_fingerprint",
+    "scope",
+    "current_generation",
+    "target_generation",
+    "actions",
+    "required_bytes",
+    "risk",
+    "trust_revision",
+    "policy_revision",
+    "created_at",
+    "expires_at",
+    "plan_digest"
+  ]
+}

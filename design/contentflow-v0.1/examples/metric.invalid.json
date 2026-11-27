@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "observation_id": "00000000-0000-4000-8000-000000000015",
+  "workspace_id": "00000000-0000-4000-8000-000000000001",
+  "account_id": "00000000-0000-4000-8000-000000000011",
+  "platform": "youtube",
+  "remote_id": "fixture-video",
+  "metric_name": "qualified_views",
+  "semantics_revision": "fixture-definition-1",
+  "period_start": "2026-11-28T00:00:00Z",
+  "period_end": "2026-12-01T00:00:00Z",
+  "timezone": "Asia/Seoul",
+  "dimensions": {},
+  "state": "UNAVAILABLE",
+  "value": "0",
+  "unit": "views",
+  "source_ref": "synthetic",
+  "fetched_at": "2026-12-01T00:00:00Z",
+  "retention_until": null,
+  "test_only": true
+}

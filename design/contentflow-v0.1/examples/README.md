@@ -1,0 +1,3 @@
+# Design examples (not runnable production data)
+
+`*.example.json` is a structurally valid illustrative object for the matching contract. `*.invalid.json` intentionally violates its matching schema. The data explainer uses invented 100ms and 75ms processing times and a worked 25% decrease, not a real benchmark. Digests are placeholders; do not import these into a live workspace, treat them as valid approvals, or publish them. Provider capability is deliberately unknown until actual checks. The workflow shows the shape of a CPU/offline pipeline, not installed commands or a complete runnable renderer. No secrets or real account IDs are present. See `planning/TDD_HANDOFF.md` for the first implementation slice.

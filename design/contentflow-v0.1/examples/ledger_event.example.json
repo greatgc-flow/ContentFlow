@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "event_id": "00000000-0000-4000-8000-000000000016",
+  "workspace_id": "00000000-0000-4000-8000-000000000001",
+  "external_event_key": "fixture-order-1",
+  "event_type": "ESTIMATE",
+  "amount": {
+    "amount_minor": 19000,
+    "currency": "KRW",
+    "scale": 0
+  },
+  "source_ref": "synthetic",
+  "settlement_group": null,
+  "occurred_at": "2026-11-28T00:00:00Z",
+  "campaign_id": null,
+  "content_id": "00000000-0000-4000-8000-000000000007",
+  "correction_of": null,
+  "basis": "ESTIMATE",
+  "test_only": true
+}

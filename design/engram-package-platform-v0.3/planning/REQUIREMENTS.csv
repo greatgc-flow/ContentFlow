@@ -1,0 +1,37 @@
+﻿requirement_id,work_package,priority,refines_v02,requirement,test_ids
+EPP-001,E2,P0,PM-001 PM-021,Descriptor inventory is trusted static metadata; absent pack never has lifecycle effects.,EPP-001-T1 EPP-001-T2 EPP-001-T3
+EPP-002,E2,P0,PM-002 PM-021,Canonical package/slot/alias mapping and unique profile identities; P0 capability graph only.,EPP-002-T1 EPP-002-T2
+EPP-003,E2,P0,PM-002 CFI-004,"System-relative paths use actual root, not literal _sys.",EPP-003-T1 EPP-003-T2 EPP-003-T3
+EPP-004,E2,P0,PM-003 PM-014 PM-018,Pack registry single active pointer with installation ID/revision; retained data and health separate.,EPP-004-T1 EPP-004-T2 EPP-004-T3
+EPP-005,E2,P0,PM-004 PM-005,Preserve legacy CLI flags and output; generic direct launcher forwards argv/status.,EPP-005-T1 EPP-005-T2 EPP-005-T3
+EPP-006,E1,P0,PM-006 PM-007,Reuse actual WP1–3 runtime provider; one writer and exact compatible binary; isolate app envs.,EPP-006-T1 EPP-006-T2 EPP-006-T3
+EPP-007,E1,P0,PM-007 PM-012,"Runtime bindings remain authoritative in runtime registry, pack references validated.",EPP-007-T1 EPP-007-T2 EPP-007-T3
+EPP-008,E2,P0,PM-009 PM-011,"Pure plan binds revisions, root, trust, scope, policy, expiry, digest and risk.",EPP-008-T1 EPP-008-T2 EPP-008-T3
+EPP-009,E3,P0,PM-010,Release trust and manifest checked independent of payload before execution.,EPP-009-T1 EPP-009-T2 EPP-009-T3
+EPP-010,E3,P0,PM-002 PM-010,"Archive admission checks Windows path normalization, member hashes, size and bounds.",EPP-010-T1 EPP-010-T2 EPP-010-T3
+EPP-011,E3,P0,PM-010 PM-011,Space and immutable staged environment before activation.,EPP-011-T1 EPP-011-T2
+EPP-012,E3,P0,PM-008,Versioned bounded trusted adapter subprocess; no Core import or arbitrary commands.,EPP-012-T1 EPP-012-T2 EPP-012-T3
+EPP-013,E3,P0,PM-008 PM-011 CFI-002,Generic host lifecycle owns all app installation; package hooks only domain actions.,EPP-013-T1 EPP-013-T2
+EPP-014,E3,P0,PM-011 PM-013,"One lifecycle gate, parent intent and deterministic effect IDs before mutation.",EPP-014-T1 EPP-014-T2 EPP-014-T3
+EPP-015,E3,P0,PM-011 PM-012 PM-013,"Runtime+pack pointer group fenced until coherent publication, no torn healthy state.",EPP-015-T1 EPP-015-T2 EPP-015-T3
+EPP-016,E3,P0,PM-011 PM-014,Application launch/stop admission coordinated with mutation gate and process identity.,EPP-016-T1 EPP-016-T2 EPP-016-T3
+EPP-017,E3,P0,PM-011 PM-012,"Report per-group success/partial/rollback/recovery with evidence, not global success.",EPP-017-T1 EPP-017-T2 EPP-017-T3
+EPP-018,E4,P0,PM-011 PM-016,"App schema migration uses matching checkpoint and candidate health, not pointer-only rollback.",EPP-018-T1 EPP-018-T2 EPP-018-T3
+EPP-019,E2,P0,PM-014,"Shallow doctor offline read-only, no provider/probe effects.",EPP-019-T1 EPP-019-T2 EPP-019-T3
+EPP-020,E4,P0,PM-013 PM-004,Detached core update preserves pack roots and parent intent.,EPP-020-T1 EPP-020-T2 EPP-020-T3
+EPP-021,E4,P0,PM-010 PM-021,"Core packaging uses explicit pack-boundary allowlist, no private material.",EPP-021-T1 EPP-021-T2 EPP-021-T3
+EPP-022,E4,P0,PM-016,"Consistent checkpoint includes domain data schema, inventory/locks, excluded secrets and pending intents.",EPP-022-T1 EPP-022-T2 EPP-022-T3
+EPP-023,E4,P0,PM-016 PM-017 CFI-004,Restore/copy creates dormant or fresh lineage and reauthorizes external effects.,EPP-023-T1 EPP-023-T2 EPP-023-T3
+EPP-024,E4,P0,PM-015 PM-017 CFI-004,Relocation uses verified local data and offline env reconstruction with explicit move/clone.,EPP-024-T1 EPP-024-T2 EPP-024-T3
+EPP-025,E4,P0,PM-018 PM-020,Package remove is exact ownership-scoped; preserve domain data/model/config and other package.,EPP-025-T1 EPP-025-T2 EPP-025-T3
+EPP-026,E4,P0,PM-018 PM-019 PM-020,Purge is separate explicit typed scope with verified backup; GC only unreferenced disposable.,EPP-026-T1 EPP-026-T2
+EPP-027,E4,P0,PM-019 PM-004,Whole uninstall preserves recovery metadata and data outside deletion targets; legacy behavior unchanged.,EPP-027-T1 EPP-027-T2 EPP-027-T3
+EPP-028,E5,P0,PM-021 CFI-003,Third synthetic pack and mixed packages validate no product-specific Core edits.,EPP-028-T1 EPP-028-T2 EPP-028-T3
+EPP-029,C1,P0,CFI-001 CFI-002,ContentFlow domain independent and managed deployment does not duplicate bootstrap.,EPP-029-T1 EPP-029-T2 EPP-029-T3
+EPP-030,C2,P0,CFI-001 CFI-004 CFI-006,Offline CPU slice produces validated media and provenance with zero external business calls.,EPP-030-T1 EPP-030-T2 EPP-030-T3
+EPP-031,C3,P0,CFI-003 CFI-004,Integrated CF Lite on actual portable Engram with independent runtime and domain lifecycle.,EPP-031-T1 EPP-031-T2 EPP-031-T3
+EPP-032,C4,P1,CFI-005 CFI-006,Optional Studio/UI local only and missing profiles do not break Lite.,EPP-032-T1 EPP-032-T2
+EPP-033,E6,P1,PM-022 CFI-005,"Cooperative GPU lease across managed consumers has declared scope, device identity and fences.",EPP-033-T1 EPP-033-T2 EPP-033-T3
+EPP-034,C3,P0,CFI-006 PM-009,"Install/runtime approval never authorizes account, source, money, publication or background actions.",EPP-034-T1 EPP-034-T2 EPP-034-T3
+EPP-035,E4,P0,PM-010 CFI-004 CFI-005,"Native artifact/license/host footprint proof before release, no administrative host changes.",EPP-035-T1 EPP-035-T2 EPP-035-T3
+EPP-036,E0,P0,PM-004 PM-013 PM-021,"Concurrent development and evidence authority remain traceable, immutable old design.",EPP-036-T1 EPP-036-T2

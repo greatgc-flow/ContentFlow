@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "provider_id": "local.ffmpeg",
+  "version": "fixture-version-not-installed",
+  "kind": "RENDERER",
+  "operations": [
+    "render",
+    "probe"
+  ],
+  "formats": [
+    "video/mp4"
+  ],
+  "locales": [
+    "ko-KR",
+    "en-US"
+  ],
+  "data_boundary": "LOCAL_ONLY",
+  "auth_state": "NOT_REQUIRED",
+  "license_state": "UNKNOWN",
+  "pricing_state": "FREE_LOCAL",
+  "idempotency_support": "LOCAL",
+  "retention_policy_ref": null,
+  "health": "UNKNOWN",
+  "checked_at": "2026-11-28T00:00:00Z",
+  "expires_at": "2026-12-01T00:00:00Z",
+  "test_only": true
+}

@@ -1,0 +1,13 @@
+case_id,requirements,scenario,oracle,status
+CFX-01,CF-006 EPP-029,"Standalone pure domain runs without Engram, AI or PeerHub",No import of host/private modules; fixture outputs stable; no install or network,NOT_RUN
+CFX-02,EPP-003 EPP-024,Rename system root and move to new drive with spaces/Korean,"Same relative references, recreated env at new final path, original data hashes",NOT_RUN
+CFX-03,EPP-006 EPP-007 EPP-031,AI and CF share exact Python binary and separate envs,Different site-packages and lock; update incompatible consumer retains previous binding,NOT_RUN
+CFX-04,EPP-012 EPP-034,Unknown version or mismatched request echo; adapter times out after checkpoint,"No activation, unknown effect reconciled from receipt; no automatic rerun",NOT_RUN
+CFX-05,CF-002 EPP-030,"Synthetic source 100/75 -> 25% chart, 15s MP4/SRT/article/manifest","Full decode, frames, captions/audio, hash/claim lineage; no socket, spend, posting",NOT_RUN
+CFX-06,EPP-014 EPP-015 EPP-016,Crash between runtime and pack pointer then direct launch,"No launch until coherent receipt; resume/rollback deterministic, no nested lock",NOT_RUN
+CFX-07,EPP-018 EPP-022 EPP-023,"Migration or restore crash, old schema and pending publication","Old consistent checkpoint preserved, restored/clone external authority dormant",NOT_RUN
+CFX-08,EPP-025 EPP-026 EPP-027,"Remove CF, retain data, reinstall; whole uninstall checkpoint failure",Only owned program removed; models/workspaces/config and AI unchanged; global removal refused if no recovery export,NOT_RUN
+CFX-09,EPP-020 EPP-021 EPP-035,Build actual release with model/db/secret/media sentinels; detached core update,"None leaked, pack bytes retained, unsupported downgrade blocked/documented",NOT_RUN
+CFX-10,EPP-028 EPP-031,"No pack, AI only, CF only, both and third synthetic pack","No-pack legacy golden unchanged; third via descriptor, no product-specific manager branch",NOT_RUN
+CFX-11,EPP-032 EPP-033,Missing Studio/GPU; foreign workload or expired lease,"Lite usable, no unowned kill, no implicit cloud fallback; unavailable clear",NOT_RUN
+CFX-12,EPP-034,Host install approved; provider/publish/source not approved; copied approval,"No external calls, collection, money, publish, schedules; explicit reauthorization",NOT_RUN

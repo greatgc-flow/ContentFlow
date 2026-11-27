@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://engram.invalid/epp/v03/descriptor.schema.json",
+  "title": "descriptor TEST_ONLY proposed contract; not production authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "fixture_only": {
+      "const": true
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "package_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,47}$"
+    },
+    "slot_rel": {
+      "type": "string",
+      "pattern": "^(AI|ContentFlow|packages/[a-z][a-z0-9-]{0,47})$"
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "host": {
+      "const": "windows-x64"
+    },
+    "protocol_min": {
+      "const": "1.0"
+    },
+    "protocol_max": {
+      "const": "1.0"
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]{0,47}$"
+      },
+      "minItems": 0,
+      "maxItems": 8,
+      "uniqueItems": true
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,47}$"
+          },
+          "requires_capabilities": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "python-extra",
+                "ffmpeg",
+                "nodejs",
+                "local-llm",
+                "local-gpu",
+                "postgres",
+                "browser",
+                "tts",
+                "asr",
+                "cpu-render"
+              ]
+            },
+            "minItems": 0,
+            "maxItems": 32,
+            "uniqueItems": true
+          },
+          "optional_capabilities": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "python-extra",
+                "ffmpeg",
+                "nodejs",
+                "local-llm",
+                "local-gpu",
+                "postgres",
+                "browser",
+                "tts",
+                "asr",
+                "cpu-render"
+              ]
+            },
+            "minItems": 0,
+            "maxItems": 32,
+            "uniqueItems": true
+          },
+          "requires_packages": {
+            "type": "array",
+            "maxItems": 0
+          }
+        },
+        "required": [
+          "id",
+          "requires_capabilities",
+          "optional_capabilities",
+          "requires_packages"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 16
+    },
+    "default_profile": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,47}$"
+    },
+    "adapter_operations": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "probe",
+          "quiesce",
+          "checkpoint",
+          "migrate",
+          "restore",
+          "relocate",
+          "health",
+          "resume",
+          "stop"
+        ]
+      },
+      "minItems": 0,
+      "maxItems": 12,
+      "uniqueItems": true
+    },
+    "trust_key_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+      },
+      "minItems": 1,
+      "maxItems": 8,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "fixture_only",
+    "schema_version",
+    "package_id",
+    "slot_rel",
+    "display_name",
+    "host",
+    "protocol_min",
+    "protocol_max",
+    "aliases",
+    "profiles",
+    "default_profile",
+    "adapter_operations",
+    "trust_key_ids"
+  ]
+}

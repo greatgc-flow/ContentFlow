@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "00000000-0000-4000-8000-000000000001",
+  "project_id": "00000000-0000-4000-8000-000000000002",
+  "asset_id": "00000000-0000-4000-8000-000000000006",
+  "revision": 1,
+  "sha256": "e05c162f3b38a5ed3a18a84006d61a74274e7aa0b33853479368b85fb793b986",
+  "size_bytes": 33,
+  "mime": "image/png",
+  "kind": "CHART",
+  "duration_ms": null,
+  "provider_id": "fake.chart",
+  "provider_version": "1",
+  "parent_refs": [
+    {
+      "id": "00000000-0000-4000-8000-000000000005",
+      "revision": 1,
+      "digest": "13136d5efb54c0ed3c6555eaea17f9b3fcaa12edc67d973411c6b94162fc7cb9"
+    }
+  ],
+  "rights": {
+    "status": "ALLOWED",
+    "license_id": "SYNTHETIC_TEST_FIXTURE",
+    "license_version": "1",
+    "evidence_ref": "Original synthetic test data; test only. No actual distribution permission.",
+    "permissions": [
+      "READ",
+      "EXTRACT",
+      "TRANSFORM"
+    ],
+    "allowed_destinations": [],
+    "attribution": null,
+    "expires_at": null,
+    "retention_until": null,
+    "consent_ref": null,
+    "reviewed_at": "2026-11-28T00:00:00Z"
+  },
+  "test_only": true
+}

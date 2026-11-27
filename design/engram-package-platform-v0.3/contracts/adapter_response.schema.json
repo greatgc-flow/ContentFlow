@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://engram.invalid/epp/v03/adapter_response.schema.json",
+  "title": "adapter_response TEST_ONLY proposed contract; not production authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "fixture_only": {
+      "const": true
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "protocol_version": {
+      "const": "1.0"
+    },
+    "request_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "parent_op_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "installation_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "package_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,47}$"
+    },
+    "generation": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "operation": {
+      "enum": [
+        "probe",
+        "quiesce",
+        "checkpoint",
+        "migrate",
+        "restore",
+        "relocate",
+        "health",
+        "resume",
+        "stop"
+      ]
+    },
+    "status": {
+      "enum": [
+        "OK",
+        "BLOCKED",
+        "UNSUPPORTED",
+        "UNKNOWN",
+        "FAILED"
+      ]
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      },
+      "minItems": 0,
+      "maxItems": 32
+    },
+    "receipt": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "effect_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+            },
+            "checkpoint_sha256": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "observed_state": {
+              "enum": [
+                "OLD",
+                "NEW",
+                "UNCHANGED",
+                "UNKNOWN"
+              ]
+            },
+            "owned_process_ids": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "minItems": 0,
+              "maxItems": 32,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "effect_id",
+            "checkpoint_sha256",
+            "observed_state",
+            "owned_process_ids"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "next_action": {
+      "enum": [
+        "NONE",
+        "REPLAN",
+        "RECONCILE",
+        "REPAIR",
+        "STOP"
+      ]
+    }
+  },
+  "required": [
+    "fixture_only",
+    "schema_version",
+    "protocol_version",
+    "request_id",
+    "parent_op_id",
+    "installation_id",
+    "package_id",
+    "generation",
+    "operation",
+    "status",
+    "findings",
+    "receipt",
+    "next_action"
+  ]
+}

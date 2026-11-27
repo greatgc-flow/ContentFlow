@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contentflow.invalid/contracts/pack_manifest.schema.json",
+  "title": "pack_manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "pack_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "platform": {
+      "enum": [
+        "windows-x64",
+        "linux-x64"
+      ]
+    },
+    "kind": {
+      "enum": [
+        "lite",
+        "studio",
+        "voice",
+        "gpu",
+        "model"
+      ]
+    },
+    "runtime_compatibility": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "pack_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "manifest_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "pack_id",
+          "version",
+          "manifest_sha256"
+        ]
+      },
+      "minItems": 0
+    },
+    "source_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "license_status": {
+      "enum": [
+        "review_required",
+        "approved",
+        "denied"
+      ]
+    },
+    "license_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "archive_bytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "installed_bytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "scratch_bytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "lock_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Logical relative path. Domain must additionally validate normalized containment, reparse points, device names, Unicode collisions, and traversal."
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "role": {
+            "enum": [
+              "runtime",
+              "model",
+              "wheel",
+              "license",
+              "notice",
+              "asset",
+              "other"
+            ]
+          }
+        },
+        "required": [
+          "path",
+          "sha256",
+          "bytes",
+          "role"
+        ]
+      },
+      "minItems": 1
+    },
+    "detached_signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "key_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "algorithm": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signature_path": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Logical relative path. Domain must additionally validate normalized containment, reparse points, device names, Unicode collisions, and traversal."
+        }
+      },
+      "required": [
+        "key_id",
+        "algorithm",
+        "signature_path"
+      ]
+    },
+    "test_only": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "pack_id",
+    "version",
+    "platform",
+    "kind",
+    "runtime_compatibility",
+    "dependencies",
+    "source_url",
+    "license_status",
+    "license_refs",
+    "archive_bytes",
+    "installed_bytes",
+    "scratch_bytes",
+    "lock_sha256",
+    "files",
+    "detached_signature",
+    "test_only"
+  ]
+}

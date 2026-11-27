@@ -1,0 +1,36 @@
+{
+  "fixture_only": true,
+  "schema_version": "1.0",
+  "package_id": "contentflow",
+  "version": "0.1.0",
+  "profile": "lite",
+  "host": "windows-x64",
+  "manager_protocol": "1.0",
+  "artifact_ref": "fixture-artifact",
+  "artifact_sha256": "b708cf42b6ebcacfaeef10f257197a1f2ed78a683011d9e15ce4430c033f05a6",
+  "artifact_bytes": 256,
+  "expanded_bytes": 128,
+  "members": [
+    {
+      "path_rel": "bin/app.py",
+      "sha256": "b708cf42b6ebcacfaeef10f257197a1f2ed78a683011d9e15ce4430c033f05a6",
+      "bytes": 64,
+      "asset_class": "PROGRAM"
+    },
+    {
+      "path_rel": "bin/adapter.py",
+      "sha256": "b708cf42b6ebcacfaeef10f257197a1f2ed78a683011d9e15ce4430c033f05a6",
+      "bytes": 64,
+      "asset_class": "PROGRAM"
+    }
+  ],
+  "runtime_lock_sha256": "b708cf42b6ebcacfaeef10f257197a1f2ed78a683011d9e15ce4430c033f05a6",
+  "sbom_sha256": "b708cf42b6ebcacfaeef10f257197a1f2ed78a683011d9e15ce4430c033f05a6",
+  "license_evidence_ref": "fixture-license",
+  "signing_key_id": "synthetic-key",
+  "signature_ref": "synthetic-signature-placeholder",
+  "app_entry_rel": "bin/app.py",
+  "adapter_entry_rel": "bin/adapter.py",
+  "read_schema_min": 1,
+  "read_schema_max": 1
+}

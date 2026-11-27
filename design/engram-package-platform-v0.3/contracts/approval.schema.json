@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://engram.invalid/epp/v03/approval.schema.json",
+  "title": "approval TEST_ONLY proposed contract; not production authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "fixture_only": {
+      "const": true
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "approval_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "op_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "installation_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "root_fingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "plan_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "scope": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]{0,47}$"
+      },
+      "minItems": 1,
+      "maxItems": 32,
+      "uniqueItems": true
+    },
+    "trust_revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "policy_revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "risk": {
+      "enum": [
+        "normal",
+        "migration",
+        "purge",
+        "trust-change"
+      ]
+    },
+    "approved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "authorization_kind": {
+      "const": "SYNTHETIC_TEST_ONLY"
+    }
+  },
+  "required": [
+    "fixture_only",
+    "schema_version",
+    "approval_id",
+    "op_id",
+    "installation_id",
+    "root_fingerprint",
+    "plan_digest",
+    "scope",
+    "trust_revision",
+    "policy_revision",
+    "risk",
+    "approved_at",
+    "expires_at",
+    "authorization_kind"
+  ]
+}

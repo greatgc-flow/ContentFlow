@@ -1,0 +1,103 @@
+﻿test_id,requirement_id,work_package,priority,kind,fixture_action_and_oracle,status
+EPP-001-T1,EPP-001,E2,P0,positive,Known catalog no registry/slot: list shows AVAILABLE/ABSENT; before/after complete fixture tree and socket/process counters equal.,NOT_RUN
+EPP-001-T2,EPP-001,E2,P0,negative,"Unknown existing slot or missing marker: UNKNOWN/FOREIGN, no adoption or creation.",NOT_RUN
+EPP-001-T3,EPP-001,E2,P0,interaction,"No-pack main golden CLI output, exit and state equality across update/doctor/repair/backup/restore/reset/tidy/uninstall (dry-run); no pack imports.",NOT_RUN
+EPP-002-T1,EPP-002,E2,P0,positive,"AI, CF and gamma valid mappings; default profile exists; finite known capability graph; gamma run via generic entry.",NOT_RUN
+EPP-002-T2,EPP-002,E2,P0,negative,"Duplicate alias/profile/case/device name, mismatched slot, unknown capability, hard-pack dependency/cycle: reject before writes.",NOT_RUN
+EPP-003-T1,EPP-003,E2,P0,positive,Rename system dir and move test root; resolve exact same relative member under actual root.,NOT_RUN
+EPP-003-T2,EPP-003,E2,P0,negative,"Reject absolute/UNC/ADS/traversal/trailing dot/space/reparse, case-normalized collision, outside anchor.",NOT_RUN
+EPP-003-T3,EPP-003,E2,P0,interaction,Path changes after plan -> recheck before effect; no external sentinel mutation.,NOT_RUN
+EPP-004-T1,EPP-004,E2,P0,positive,Install metadata and retained tombstone validate; inventory reports exact active generation or none without launching.,NOT_RUN
+EPP-004-T2,EPP-004,E2,P0,negative,"Foreign install, duplicate JSON key, unsupported schema, missing ref/corrupt bytes -> BLOCKED; unchanged registry.",NOT_RUN
+EPP-004-T3,EPP-004,E2,P0,interaction,Missing registry but surviving recovery inventory -> proposal only; no implicit ownership.,NOT_RUN
+EPP-005-T1,EPP-005,E2,P0,positive,"Golden --only packages means Python deps, --only python same paths, old --json grammar unchanged.",NOT_RUN
+EPP-005-T2,EPP-005,E2,P0,negative,Conflicting new flags / unknown pack rejected; --yes alone no apply; alias absent no auto setup.,NOT_RUN
+EPP-005-T3,EPP-005,E2,P0,interaction,Exact quoted args/child status for CMD/PowerShell/Git Bash with spaces and Korean; unsupported metachar path refusal.,NOT_RUN
+EPP-006-T1,EPP-006,E1,P0,positive,"Two owners use one exact CPython build; different locked envs and sys.prefix, correct imports.",NOT_RUN
+EPP-006-T2,EPP-006,E1,P0,negative,Wrong ABI/provider/hash/arch or missing wheels; no host fallback/shared site-packages.,NOT_RUN
+EPP-006-T3,EPP-006,E1,P0,interaction,Existing legacy venv remains unchanged; pinned incompatible consumer stays on old build.,NOT_RUN
+EPP-007-T1,EPP-007,E1,P0,positive,Prepare publication through typed runtime port with consumer binding and exact ref; no duplicate runtime authority.,NOT_RUN
+EPP-007-T2,EPP-007,E1,P0,negative,Attempt nested python_registry.publish under env_ops -> refuse/no deadlock; unknown refs/nonempty unsupported collections blocked.,NOT_RUN
+EPP-007-T3,EPP-007,E1,P0,interaction,No GC of old runtime until WP3 reference-aware removal port proven; old pins retained.,NOT_RUN
+EPP-008-T1,EPP-008,E2,P0,positive,Same fixture inputs/time/IDs produce identical canonical plan; no writes or spawn.,NOT_RUN
+EPP-008-T2,EPP-008,E2,P0,negative,"Mutated payload, stale revision/root/trust/expiry or risk not covered -> no effects; --yes not sufficient.",NOT_RUN
+EPP-008-T3,EPP-008,E2,P0,interaction,Replan when free space changes or a competing registry write wins.,NOT_RUN
+EPP-009-T1,EPP-009,E3,P0,positive,"Trusted synthetic key stub, exact bytes/member manifest, profile and compatibility -> staged not active.",NOT_RUN
+EPP-009-T2,EPP-009,E3,P0,negative,"Fake embedded key, revoked/untrusted publisher, digest mismatch, missing license, unsupported protocol -> quarantine/refuse.",NOT_RUN
+EPP-009-T3,EPP-009,E3,P0,interaction,Production key rotation and offline freshness real gate; stub pass cannot satisfy G3.,NOT_RUN
+EPP-010-T1,EPP-010,E3,P0,positive,Valid bounded archive exact regular members; extracted bytes verified in isolated owned stage.,NOT_RUN
+EPP-010-T2,EPP-010,E3,P0,negative,"Zip slip, device, ADS, duplicate case, symlink, zip bomb, hardlink/size mismatch -> no outside write/no execution.",NOT_RUN
+EPP-010-T3,EPP-010,E3,P0,interaction,Archive changed between inventory and extraction; detect actual size/hash; quarantine.,NOT_RUN
+EPP-011-T1,EPP-011,E3,P0,positive,Compute artifact+expand+env+previous+backup+scratch+workspace reserve; build env at final path; old pointer remains.,NOT_RUN
+EPP-011-T2,EPP-011,E3,P0,negative,Low disk or native import fails after partial stage -> old app/data intact; clean only owned stage.,NOT_RUN
+EPP-012-T1,EPP-012,E3,P0,positive,"Fixture process reads one JSON request, echoes IDs and receipts, explicit verified argv/cwd/env, stdout schema.",NOT_RUN
+EPP-012-T2,EPP-012,E3,P0,negative,"Malformed/duplicate/oversized JSON, unknown op, wrong identity/digest, timeout/exit or secret spill -> safe error and no fresh retry.",NOT_RUN
+EPP-012-T3,EPP-012,E3,P0,interaction,New adapter invoked only after verified artifact; default doctor does not execute it.,NOT_RUN
+EPP-013-T1,EPP-013,E3,P0,positive,Trivial fixture no DB/adapter works with generic install; DB package declares checkpoint/migrate/restore.,NOT_RUN
+EPP-013-T2,EPP-013,E3,P0,negative,Required hook missing or adapter requests unowned delete/host reinstall -> block; no arbitrary script execution.,NOT_RUN
+EPP-014-T1,EPP-014,E3,P0,positive,"Acquire gate, journal exact old/new images, valid intent and stage; second process observes BUSY.",NOT_RUN
+EPP-014-T2,EPP-014,E3,P0,negative,Crash before/after every journal append incl intent; retry reconciles actual bytes; no forged journal or duplicate effects.,NOT_RUN
+EPP-014-T3,EPP-014,E3,P0,interaction,Reentrant adapter attempt forbidden; no nested runtime lock/journal.,NOT_RUN
+EPP-015-T1,EPP-015,E3,P0,positive,"Simulate runtime and app CAS, complete group and verified exact refs.",NOT_RUN
+EPP-015-T2,EPP-015,E3,P0,negative,"Inject crash before/after each pointer and ack, compare old/new images; divergence blocks, safe resume/rollback only.",NOT_RUN
+EPP-015-T3,EPP-015,E3,P0,interaction,Launch attempt at each intermediate state fails; no stale app sees new incompatible runtime.,NOT_RUN
+EPP-016-T1,EPP-016,E3,P0,positive,Register launch intent under lock; prove child PID/start/generation; drain only owned service and restart prior state.,NOT_RUN
+EPP-016-T2,EPP-016,E3,P0,negative,"Concurrent spawn/update, timeout, PID reuse, unowned matching port; block without terminating unrelated process.",NOT_RUN
+EPP-016-T3,EPP-016,E3,P0,interaction,"Crash after spawn before ack -> reconcile owner or block, no duplicate launch.",NOT_RUN
+EPP-017-T1,EPP-017,E3,P0,positive,"A commits, unrelated B fails -> PARTIAL with exact per-group refs and nonzero exit.",NOT_RUN
+EPP-017-T2,EPP-017,E3,P0,negative,Shared-runtime coherent group fails health/migration -> no partial success within group; keep old or RECOVERY_REQUIRED.,NOT_RUN
+EPP-017-T3,EPP-017,E3,P0,interaction,Postcommit receipt write fails; never report precommit rollback.,NOT_RUN
+EPP-018-T1,EPP-018,E4,P0,positive,Reversible schema fixture migrated in staged target; rollback restores matching old snapshot and app version.,NOT_RUN
+EPP-018-T2,EPP-018,E4,P0,negative,One-way migration/no verified backup/new schema opened by old binary -> refuse; preserve original.,NOT_RUN
+EPP-018-T3,EPP-018,E4,P0,interaction,"Crash after migration before activation; no lost committed writes, reconcile snapshot and pointer.",NOT_RUN
+EPP-019-T1,EPP-019,E2,P0,positive,"Read stopped installed valid app, report observed status; all hashes/network/process counters unchanged.",NOT_RUN
+EPP-019-T2,EPP-019,E2,P0,negative,"Corrupt/missing executable, registry or unknown health -> findings not auto repair/install.",NOT_RUN
+EPP-019-T3,EPP-019,E2,P0,interaction,"Explicit deep local probe isolated scratch, bounded timeout; no model/egress.",NOT_RUN
+EPP-020-T1,EPP-020,E4,P0,positive,Prior supported updater candidate core-only archive leaves both pack trees byte-identical; handoff resumes validated intent.,NOT_RUN
+EPP-020-T2,EPP-020,E4,P0,negative,"Helper crash, new protocol incompatible or altered stage/approval -> recovery only; no unapproved pack effects.",NOT_RUN
+EPP-020-T3,EPP-020,E4,P0,interaction,Downgrade or old raw executable cannot guarantee new policy; supported manager refuses incompatible downgrade.,NOT_RUN
+EPP-021-T1,EPP-021,E4,P0,positive,Actual archive lists reviewed descriptors/wrappers; all expected legacy core members present.,NOT_RUN
+EPP-021-T2,EPP-021,E4,P0,negative,Synthetic secrets/models/DB/WAL/config/workspaces/unknown pack/env nested/case variants excluded; check actual archive bytes/member names.,NOT_RUN
+EPP-021-T3,EPP-021,E4,P0,interaction,"Test build from clean and dirty tree; exact expected release membership, no reliance on gitignore.",NOT_RUN
+EPP-022-T1,EPP-022,E4,P0,positive,"Quiesce fixture with DB+artifact consistency; restore into isolated target, compare rows/hashes and manifest.",NOT_RUN
+EPP-022-T2,EPP-022,E4,P0,negative,"Active WAL or inconsistent artifact cut, incomplete/corrupt checkpoint or disk failure -> no successful backup.",NOT_RUN
+EPP-022-T3,EPP-022,E4,P0,interaction,Legacy backup without pack leaves pack untouched; newer unsupported schema refuses.,NOT_RUN
+EPP-023-T1,EPP-023,E4,P0,positive,Data-only restore to absent slot -> DATA_RETAINED; no app install/autorun; clone new identity.,NOT_RUN
+EPP-023-T2,EPP-023,E4,P0,negative,"Copied paid/publish/bot consent, stale lease/pending unknown intent -> disabled/reconcile, no effect.",NOT_RUN
+EPP-023-T3,EPP-023,E4,P0,interaction,Existing target/sole backup conflict -> refuse overwrite; previous data retained.,NOT_RUN
+EPP-024-T1,EPP-024,E4,P0,positive,"Same-volume rename + cross-volume copy, Korean/space paths; rebuild env at target, source preserved until verification.",NOT_RUN
+EPP-024-T2,EPP-024,E4,P0,negative,"Live DB, unknown source still active, missing wheel, unsupported FS/reparse -> blocked; no host fallback.",NOT_RUN
+EPP-024-T3,EPP-024,E4,P0,interaction,No global historical path rewrite; external originals byte-identical.,NOT_RUN
+EPP-025-T1,EPP-025,E4,P0,positive,"Remove CF program, binding, owned alias; AI and CF workspace remain; DATA_RETAINED and recovery metadata valid.",NOT_RUN
+EPP-025-T2,EPP-025,E4,P0,negative,"Foreign file in program generation/unknown refs, shared runtime in use -> no broad delete; protect other bytes.",NOT_RUN
+EPP-025-T3,EPP-025,E4,P0,interaction,Reinstall retained data requires explicit restore/schema check; no auto source enrollment.,NOT_RUN
+EPP-026-T1,EPP-026,E4,P0,positive,"Authorized selected expired cache eligible; pinned, active, rollback, snapshot refs retained.",NOT_RUN
+EPP-026-T2,EPP-026,E4,P0,negative,"--yes only, corrupt inventory, unknown refs/ownership, external workspace or sole backup -> no purge.",NOT_RUN
+EPP-027-T1,EPP-027,E4,P0,positive,"Current helper targets data/env but preserves slots; verify export/retained inventory before helper, exact targets; no-pack golden.",NOT_RUN
+EPP-027-T2,EPP-027,E4,P0,negative,"Checkpoint failure, unknown live process, external reparse, target path inside deleted data -> refuse; no helper launch.",NOT_RUN
+EPP-027-T3,EPP-027,E4,P0,interaction,Explicit full-root deletion requires verified external destination or separate approved purge; interrupted helper receipt recoverable.,NOT_RUN
+EPP-028-T1,EPP-028,E5,P0,positive,Two reviewed packs and gamma descriptor/release; install/run/update/remove by same APIs; diff Core unchanged for gamma.,NOT_RUN
+EPP-028-T2,EPP-028,E5,P0,negative,Remove or update failed CF with AI active; preserve AI runtime/data and show scoped outcome.,NOT_RUN
+EPP-028-T3,EPP-028,E5,P0,interaction,P0 rejects hard dependencies; optional absent AI does not block CF.,NOT_RUN
+EPP-029-T1,EPP-029,C1,P0,positive,"Run deterministic domain tests without Engram; managed mode uses injected exact runtime/path, no private Core import.",NOT_RUN
+EPP-029-T2,EPP-029,C1,P0,negative,CF setup tries host runtime/pip/vendor update or requires installed AI -> fail boundary.,NOT_RUN
+EPP-029-T3,EPP-029,C1,P0,interaction,Compare standalone and managed content contract fixture; package-specific feature plan delegated to coordinator.,NOT_RUN
+EPP-030-T1,EPP-030,C2,P0,positive,"Synthetic approved source + fixture script/SVG -> real pinned FFmpeg MP4, SRT, article, source manifest; verify duration/codecs/audio/subtitle timing.",NOT_RUN
+EPP-030-T2,EPP-030,C2,P0,negative,"Unlicensed asset, corrupted output, missing FFmpeg/unsupported codec, provider budget/publish denied -> block, no misleading success.",NOT_RUN
+EPP-030-T3,EPP-030,C2,P0,interaction,Run in clean standard-user Windows without host Python/Node/FFmpeg; actual network observation and isolated scratch.,NOT_RUN
+EPP-031-T1,EPP-031,C3,P0,positive,"Install only CF, then AI fixture, both and remove one; exact installed artifacts and profile receipts; move/backup/restore managed CF.",NOT_RUN
+EPP-031-T2,EPP-031,C3,P0,negative,"Native environment missing or incompatible manager/adapter schema -> block CF only, no host fallback/other pack change.",NOT_RUN
+EPP-031-T3,EPP-031,C3,P0,interaction,Managed release contains no user workspace or accounts; no separate runtime tree duplication.,NOT_RUN
+EPP-032-T1,EPP-032,C4,P1,positive,"Studio profile explicit and local loopback auth/CSRF/origin, bounded upload; shut down owned server.",NOT_RUN
+EPP-032-T2,EPP-032,C4,P1,negative,"Port occupied by foreign process, public bind, malicious origin, missing browser/model -> safe refusal; Lite remains.",NOT_RUN
+EPP-033-T1,EPP-033,E6,P1,positive,AI and CF jobs serial in same install; current token only releases; bounded queue/actual device observation.,NOT_RUN
+EPP-033-T2,EPP-033,E6,P1,negative,"Orphan/expired lease + PID reuse + unknown VRAM occupancy -> refuse or wait, no kill.",NOT_RUN
+EPP-033-T3,EPP-033,E6,P1,interaction,Two roots same GPU: prove shared namespace or block co-managed concurrency; actual RTX 3060 encode/OOM recovery receipt.,NOT_RUN
+EPP-034-T1,EPP-034,C3,P0,positive,Synthetic offline app and copied data remain draft/export; explicit separate approved scoped domain action with fake connector.,NOT_RUN
+EPP-034-T2,EPP-034,C3,P0,negative,"Stale/copied consent, mismatch digest/account/budget, unknown prior effect -> deny/no replay; secret counters zero.",NOT_RUN
+EPP-034-T3,EPP-034,C3,P0,interaction,Egress denial verified with actual OS/network proof before OFFLINE_STRICT claim.,NOT_RUN
+EPP-035-T1,EPP-035,E4,P0,positive,"Verified Windows standard-user exact artifacts, licenses/SBOM, no PATH/registry/service/driver/task changes beyond existing opted-in baseline.",NOT_RUN
+EPP-035-T2,EPP-035,E4,P0,negative,Missing driver/host prerequisites or unsupported filesystem -> diagnostic and eligible CPU alternative; no admin install.,NOT_RUN
+EPP-035-T3,EPP-035,E4,P0,interaction,"Record measured encode/import/runtime capability, not merely advertised GPU listing.",NOT_RUN
+EPP-036-T1,EPP-036,E0,P0,positive,"Recheck actual refs and PR dependency, compare contracts; all old 28 PM/CFI refs mapped and 90 CF+150 Rev06 cases preserved.",NOT_RUN
+EPP-036-T2,EPP-036,E0,P0,negative,"Stale refs, unsupported final registry port or failed native gate -> block dependent RED/release; no main mutation or false pass.",NOT_RUN

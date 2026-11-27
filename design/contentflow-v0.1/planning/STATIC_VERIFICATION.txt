@@ -1,0 +1,4 @@
+PASS traceability: 90 requirements / 180 planned tests / 49 scenarios; priorities={'P0': 58, 'P1': 27, 'P2': 4, 'P3': 1}
+PASS schema syntax + positive examples: 16; intentionally invalid examples rejected: 5
+PASS relative Markdown link existence
+NOT_RUN all application, host, GPU, API, security and real render tests; no implementation claimed.

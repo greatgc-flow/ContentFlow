@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "publication_id": "00000000-0000-4000-8000-000000000010",
+  "workspace_id": "00000000-0000-4000-8000-000000000001",
+  "content": {
+    "id": "00000000-0000-4000-8000-000000000007",
+    "revision": 1,
+    "digest": "c0f9ee0ece972ee4f2e0a7fd5f2cb91185335f6ec47fec9f391a4525b557bd6b"
+  },
+  "account_id": "00000000-0000-4000-8000-000000000011",
+  "destination": "youtube",
+  "media_hash": "ddba5c47e33f419c8de962a4c31a698299b5045d91d715497095ee4194e94832",
+  "metadata_hash": "a2fe1e8170a49d8403a94c351b5091b40c220c6f406ffdeafe3eb263ea3e7fc3",
+  "intent_digest": "0ab26c90198786e419f326e941f1e83d8d73a1a4a136769bf6f34b8d5267ab84",
+  "request_key": "fixture-only-001",
+  "visibility": "PRIVATE",
+  "scheduled_at": null,
+  "policy_revision": "fixture-policy-1",
+  "ai_disclosure": "UNKNOWN",
+  "paid_promotion": "UNKNOWN",
+  "audience": "UNKNOWN",
+  "approval_id": null,
+  "status": "DRAFT",
+  "remote_id": null,
+  "verification": "NONE",
+  "verified_at": null,
+  "test_only": true
+}

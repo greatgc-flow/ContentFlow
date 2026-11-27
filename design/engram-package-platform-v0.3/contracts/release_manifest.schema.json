@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://engram.invalid/epp/v03/release_manifest.schema.json",
+  "title": "release_manifest TEST_ONLY proposed contract; not production authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "fixture_only": {
+      "const": true
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "package_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,47}$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+    },
+    "profile": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,47}$"
+    },
+    "host": {
+      "const": "windows-x64"
+    },
+    "manager_protocol": {
+      "const": "1.0"
+    },
+    "artifact_ref": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "artifact_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "artifact_bytes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "expanded_bytes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "members": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path_rel": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-][A-Za-z0-9_.-]*(/[A-Za-z0-9_-][A-Za-z0-9_.-]*)*$",
+            "maxLength": 240
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "asset_class": {
+            "const": "PROGRAM"
+          }
+        },
+        "required": [
+          "path_rel",
+          "sha256",
+          "bytes",
+          "asset_class"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 20000
+    },
+    "runtime_lock_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sbom_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "license_evidence_ref": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "signing_key_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "signature_ref": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "app_entry_rel": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-][A-Za-z0-9_.-]*(/[A-Za-z0-9_-][A-Za-z0-9_.-]*)*$",
+      "maxLength": 240
+    },
+    "adapter_entry_rel": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-][A-Za-z0-9_.-]*(/[A-Za-z0-9_-][A-Za-z0-9_.-]*)*$",
+          "maxLength": 240
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "read_schema_min": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "read_schema_max": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "fixture_only",
+    "schema_version",
+    "package_id",
+    "version",
+    "profile",
+    "host",
+    "manager_protocol",
+    "artifact_ref",
+    "artifact_sha256",
+    "artifact_bytes",
+    "expanded_bytes",
+    "members",
+    "runtime_lock_sha256",
+    "sbom_sha256",
+    "license_evidence_ref",
+    "signing_key_id",
+    "signature_ref",
+    "app_entry_rel",
+    "adapter_entry_rel",
+    "read_schema_min",
+    "read_schema_max"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "reservation_id": "00000000-0000-4000-8000-000000000012",
+  "workspace_id": "00000000-0000-4000-8000-000000000001",
+  "job_id": "00000000-0000-4000-8000-000000000013",
+  "operation_id": "00000000-0000-4000-8000-000000000014",
+  "provider_id": "fixture.local",
+  "upper_bound": {
+    "amount_minor": 1000,
+    "currency": "KRW",
+    "scale": 0
+  },
+  "actual": null,
+  "price_ref": "synthetic-price",
+  "approval_id": null,
+  "state": "UNKNOWN",
+  "created_at": "2026-11-28T00:00:00Z",
+  "resolved_at": null,
+  "receipt_ref": null,
+  "test_only": true
+}
