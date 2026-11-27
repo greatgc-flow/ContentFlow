@@ -88,3 +88,38 @@ class OutboxTests(unittest.TestCase):
             self.assertTrue(box.reconcile(A, Money(80, "KRW", 0), "overage")["over_limit"])
             with self.assertRaises(ValueError):
                 box.prepare(B, {}, Money(1, "KRW", 0))
+
+    def test_process_loss_before_commit_and_after_claim(self):
+        import os
+        import subprocess
+        import sys
+        from contentflow.outbox import FixtureOutbox
+        from test_c1 import ROOT
+        with FixtureOutbox.create(self.path, WS, CAP):
+            pass
+        child = """
+from pathlib import Path
+import os, sys
+from uuid import UUID
+from contentflow.outbox import FixtureOutbox
+from contentflow.execution import Money
+db = FixtureOutbox.open(Path(sys.argv[1]), UUID(sys.argv[2]))
+op = UUID(sys.argv[3])
+if sys.argv[4] == 'precommit':
+    db._db.set_trace_callback(lambda sql: os._exit(75) if sql == 'COMMIT' else None)
+db.prepare(op, {'fixture': 1}, Money(75, 'KRW', 0))
+db.claim(op)
+os._exit(76)
+"""
+        def interrupt(op, phase):
+            return subprocess.run([sys.executable, "-B", "-c", child, str(self.path),
+                                   str(WS), str(op), phase], cwd=self.tmp.name, timeout=10,
+                                  env=dict(os.environ, PYTHONPATH=str(ROOT))).returncode
+        self.assertEqual(interrupt(A, "precommit"), 75)
+        self.assertEqual(interrupt(B, "afterclaim"), 76)
+        with FixtureOutbox.open(self.path, WS) as box:
+            self.assertEqual(box.prepare(B, {"fixture": 1}, BOUND)["state"], "UNKNOWN")
+            with self.assertRaises(ValueError):
+                box.claim(B)
+            with self.assertRaises(ValueError):
+                box.claim(A)

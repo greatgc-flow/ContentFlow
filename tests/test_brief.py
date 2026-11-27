@@ -37,3 +37,12 @@ class SyntheticBriefTests(unittest.TestCase):
         self.assertEqual(result["relative_decrease_percent"], "25")
         self.assertEqual(result["source_sha256"], hashlib.sha256(
             (ROOT / "contentflow/fixtures/processing-times.csv").read_bytes()).hexdigest())
+
+    def test_decimal_context_cannot_change_recomputed_claim(self):
+        from decimal import localcontext, Inexact, ROUND_UP
+        from contentflow.brief import processing_time_brief
+        raw = b"sample,value,unit\nbaseline,3,ms\noptimized,2,ms\n"
+        with localcontext() as caller:
+            caller.traps[Inexact] = True
+            caller.rounding = ROUND_UP
+            self.assertEqual(processing_time_brief(raw)["relative_decrease_percent"], "33.333333")
