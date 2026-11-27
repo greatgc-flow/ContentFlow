@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools==84.2.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "contentflow"
+version = "0.1.0.dev0"
+description = "Standalone offline workflow planning and synthetic evidence previews"
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+[project.scripts]
+contentflow = "contentflow.__main__:main"
+
+[tool.setuptools]
+packages = ["contentflow"]
+
+[tool.setuptools.package-data]
+contentflow = ["fixtures/*.csv"]
