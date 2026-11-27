@@ -1,6 +1,6 @@
 """Derive a private draft claim from two synthetic integer millisecond measurements."""
 import csv
-from decimal import Decimal, localcontext
+from decimal import Context, Decimal, ROUND_HALF_EVEN, localcontext
 import hashlib
 from importlib.resources import files
 import io
@@ -25,8 +25,7 @@ def processing_time_brief(raw: bytes) -> dict:
     baseline, optimized = values
     if baseline == 0:
         raise ValueError("relative change requires a positive baseline")
-    with localcontext() as context:
-        context.prec = 28
+    with localcontext(Context(prec=28, rounding=ROUND_HALF_EVEN)):
         change = Decimal((baseline - optimized) * 100) / Decimal(baseline)
         percent = format(change.quantize(Decimal("0.000001")), "f").rstrip("0").rstrip(".")
     return {
