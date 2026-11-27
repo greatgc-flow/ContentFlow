@@ -87,7 +87,25 @@ def draw(root, brief):
         "-c:a", "aac", "-threads:a", "1", "-b:a", "96k", "-movflags", "+faststart", "preview.mp4")
 
 
+def check_chart(root, name):
+    # Sample the two filled bars and their unfilled regions at one tenth scale.
+    # The tolerance covers YUV conversion and chroma subsampling of the encoded frame.
+    args = ("-protocol_whitelist", "file,pipe", "-f", "mov" if name.endswith(".mp4") else "image2",
+            "-i", name, "-map", "0:v:0", "-frames:v", "1", "-filter_threads", "1",
+            "-vf", "scale=108:192", "-pix_fmt", "rgb24", "-threads", "1", "-f", "rawvideo", "-")
+    pixels = run(root, FFMPEG, *args)
+    require(len(pixels) == 108 * 192 * 3, "incomplete chart frame")
+    for x, y, color in ((15, 78, (117, 183, 195)), (92, 78, (117, 183, 195)),
+                        (73, 110, (233, 173, 104)), (79, 110, (16, 33, 48)),
+                        (99, 78, (16, 33, 48))):
+        at = (108 * y + x) * 3
+        require(all(abs(actual - expected) <= 12 for actual, expected in zip(pixels[at:at + 3], color)),
+                "chart geometry or color differs from authored data: " + name)
+
+
 def qc(root):
+    for name in sorted(MEDIA):
+        check_chart(root, name)
     common = ("-protocol_whitelist", "file,pipe", "-f", "mov", "-i", "preview.mp4")
     info = json.loads(run(root, FFPROBE, *common, "-show_streams", "-of", "json"))
     streams = {s["codec_type"]: s for s in info["streams"]}
