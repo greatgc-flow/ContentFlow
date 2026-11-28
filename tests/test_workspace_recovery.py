@@ -78,3 +78,60 @@ class WorkspaceRecoveryTests(unittest.TestCase):
         self.snapshot.mkdir()
         with self.assertRaises(ValueError):
             inspect_workspace(self.snapshot)
+
+    def test_standalone_console_round_trip(self):
+        import json
+        import os
+        import subprocess
+        import sys
+        from test_c1 import ROOT
+
+        def run(verb, *args):
+            proc = subprocess.run([sys.executable, "-B", "-m", "contentflow", "workspace", verb,
+                                   *map(str, args)], cwd=self.base, text=True, capture_output=True,
+                                  env=dict(os.environ, PYTHONPATH=str(ROOT)), timeout=15)
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            return json.loads(proc.stdout)
+
+        with FixtureOutbox.open(self.live, WS) as outbox:
+            outbox.prepare(A, {}, BOUND)
+            outbox.claim(A)
+        self.assertEqual(run("checkpoint", self.root, self.live, self.snapshot,
+                             "--workspace-id", WS)["status"], "CHECKPOINTED")
+        self.assertEqual(run("restore-review", self.root, self.live, self.snapshot, self.restored,
+                             "--workspace-id", WS)["status"], "RESTORED_FOR_REVIEW")
+        report = run("inspect", self.restored)
+        self.assertFalse(report["execution_authorized"])
+        self.assertEqual(report["outbox"]["operations"][str(A)]["state"], "UNKNOWN")
+
+    def test_os_exit_before_seal_leaves_unreadable_candidate_and_live_ledger(self):
+        import os
+        import subprocess
+        import sys
+        from contentflow.workspace_recovery import inspect_workspace
+        from test_c1 import ROOT
+
+        child = """
+import os, sys
+from datetime import datetime
+from pathlib import Path
+from uuid import UUID
+from contentflow import workspace_recovery
+from contentflow.outbox import FixtureOutbox
+from contentflow.sources import SourceLedger
+root, db, snapshot = map(Path, sys.argv[1:4])
+workspace, now = UUID(sys.argv[4]), datetime.fromisoformat(sys.argv[5])
+workspace_recovery._seal = lambda *_: os._exit(81)
+with SourceLedger.open(root, workspace) as sources, FixtureOutbox.open(db, workspace) as outbox:
+    workspace_recovery.checkpoint_workspace(sources, outbox, snapshot, now)
+"""
+        proc = subprocess.run([sys.executable, "-B", "-c", child, str(self.root), str(self.live),
+                               str(self.snapshot), str(WS), NOW.isoformat()],
+                              capture_output=True, cwd=self.base,
+                              env=dict(os.environ, PYTHONPATH=str(ROOT)), timeout=15)
+        self.assertEqual(proc.returncode, 81, proc.stderr)
+        self.assertTrue((self.snapshot / "sources").exists())
+        with self.assertRaises(ValueError):
+            inspect_workspace(self.snapshot)
+        with SourceLedger.open(self.root, WS) as current:
+            self.assertEqual(current.latest(A)["digest"], DIGEST)
