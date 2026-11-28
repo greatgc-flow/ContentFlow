@@ -12,6 +12,8 @@ MAX_ASSET = 16 * 1024 * 1024
 APP_ID = 0x43464131
 DATABASE = "assets.sqlite3"
 _DIGEST = re.compile(r"[0-9a-f]{64}")
+_ASSET_TABLE = ("CREATE TABLE asset (digest TEXT PRIMARY KEY, byte_count INTEGER NOT NULL "
+                f"CHECK (byte_count BETWEEN 0 AND {MAX_ASSET})) STRICT")
 
 
 def _sha(data):
@@ -71,7 +73,9 @@ def _connect(path, mode):
 
 def _validate(db):
     if (db.execute("PRAGMA application_id").fetchone()[0] != APP_ID
-            or db.execute("PRAGMA user_version").fetchone()[0] != 1):
+            or db.execute("PRAGMA user_version").fetchone()[0] != 1
+            or db.execute("SELECT sql FROM sqlite_schema WHERE sql IS NOT NULL").fetchall()
+            != [(_ASSET_TABLE,)]):
         raise ValueError("unrecognized asset index format")
 
 
@@ -98,8 +102,7 @@ class AssetStore:
                 BEGIN IMMEDIATE;
                 PRAGMA application_id={APP_ID};
                 PRAGMA user_version=1;
-                CREATE TABLE asset (digest TEXT PRIMARY KEY, byte_count INTEGER NOT NULL
-                                    CHECK (byte_count BETWEEN 0 AND {MAX_ASSET})) STRICT;
+                {_ASSET_TABLE};
                 COMMIT;
             """)
             if db.execute("PRAGMA journal_mode=WAL").fetchone()[0] != "wal":
@@ -174,13 +177,15 @@ class AssetStore:
                         stream.write(data)
                         stream.flush()
                         os.fsync(stream.fileno())
-                    os.replace(temp, target)
+                    os.link(temp, target)
                 finally:
                     if temp is not None:
                         temp.unlink(missing_ok=True)
             _verified(target, digest, len(data))
             _flush_directory(target.parent)
             _flush_directory(self.objects)
+            _flush_directory(self.objects.parent)
+            _flush_directory(self.root)
             self._db.execute("INSERT INTO asset VALUES (?, ?)", (digest, len(data)))
         return digest
 
