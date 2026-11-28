@@ -95,16 +95,20 @@ def restore_review(live: FixtureOutbox, snapshot: Path, destination: Path):
     archived = _read(snapshot, "outbox-checkpoint-v1")
     with _transaction(live._db):
         current = _state(live)
-        if (archived["workspace"], archived["budget"]) != (current["workspace"], current["budget"]):
-            raise ValueError("outbox workspace or budget differs from checkpoint")
-        for key, old in archived["operations"].items():
-            new = current["operations"].get(key)
-            if (new is None or (new["payload_digest"], new["upper_minor"])
-                    != (old["payload_digest"], old["upper_minor"])
-                    or new["state"] not in _ADVANCE[old["state"]]
-                    or (old["state"] in ("SETTLED", "RELEASED") and new != old)):
-                raise ValueError("current outbox does not extend the checkpoint")
+        _check_extension(archived, current)
         _write(destination, "outbox-review-v1", current)
+
+
+def _check_extension(archived, current):
+    if (archived["workspace"], archived["budget"]) != (current["workspace"], current["budget"]):
+        raise ValueError("outbox workspace or budget differs from checkpoint")
+    for key, old in archived["operations"].items():
+        new = current["operations"].get(key)
+        if (new is None or (new["payload_digest"], new["upper_minor"])
+                != (old["payload_digest"], old["upper_minor"])
+                or new["state"] not in _ADVANCE[old["state"]]
+                or (old["state"] in ("SETTLED", "RELEASED") and new != old)):
+            raise ValueError("current outbox does not extend the checkpoint")
 
 
 def read_review(path: Path):

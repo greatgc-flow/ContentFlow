@@ -166,7 +166,12 @@ class SourceLedger:
 def checkpoint_sources(ledger: SourceLedger, destination: Path, now: datetime):
     if destination.resolve().is_relative_to(ledger.root.resolve()):
         raise ValueError("place source checkpoints outside the workspace")
-    with checkpoint._new_directory(destination), ledger._stable():
+    with ledger._stable():
+        _capture_sources(ledger, destination, now)
+
+
+def _capture_sources(ledger, destination, now):
+    with checkpoint._new_directory(destination):
         records = ledger.eligible(now)
         with TemporaryDirectory(prefix=".sources-", dir=destination) as scratch:
             with AssetStore.open(ledger.root) as live, AssetStore.create(Path(scratch)) as selected:
@@ -178,7 +183,6 @@ def checkpoint_sources(ledger: SourceLedger, destination: Path, now: datetime):
         checkpoint._put_file(destination / _MARKER, canonical(body))
         _flush_directory(destination)
         _flush_directory(destination.parent)
-
 
 def _snapshot(source, workspace):
     _directory(source)
@@ -211,20 +215,24 @@ def restore_sources(live: SourceLedger, source: Path, destination: Path, now: da
         raise ValueError("restore outside the checkpoint and live workspace")
     archived, assets = _snapshot(source, live.workspace)
     with live._stable():
-        records = {key: body for key, body in live.eligible(now).items() if archived.get(key) == body}
-        tombstones = live._retired()
-        with checkpoint._new_directory(destination), TemporaryDirectory(prefix=".restore-", dir=destination) as scratch:
-            staged = Path(scratch)
-            with AssetStore.create(staged) as store:
-                for digest in sorted({row["digest"] for row in records.values()}):
-                    store.put(_verified(checkpoint._path(source / "assets", digest), digest, assets[digest]), digest)
-            with SourceLedger.create(staged, live.workspace) as ledger, ledger._stable():
-                ledger._db.executemany("INSERT INTO revision VALUES (?,?,?)",
-                                       ((key, row["revision"], canonical(row)) for key, row in records.items()))
-                ledger._db.executemany("INSERT INTO tombstone VALUES (?,?)", tombstones.items())
-            # Publish the policy database before the asset index becomes available.
-            for name in (SOURCE_DB, "objects", DATABASE):
-                os.replace(staged / name, destination / name)
-            _flush_directory(destination)
-            _flush_directory(destination.parent)
+        return _project_sources(live, source, destination, now, archived, assets)
+
+
+def _project_sources(live, source, destination, now, archived, assets):
+    records = {key: body for key, body in live.eligible(now).items() if archived.get(key) == body}
+    tombstones = live._retired()
+    with checkpoint._new_directory(destination), TemporaryDirectory(prefix=".restore-", dir=destination) as scratch:
+        staged = Path(scratch)
+        with AssetStore.create(staged) as store:
+            for digest in sorted({row["digest"] for row in records.values()}):
+                store.put(_verified(checkpoint._path(source / "assets", digest), digest, assets[digest]), digest)
+        with SourceLedger.create(staged, live.workspace) as ledger, ledger._stable():
+            ledger._db.executemany("INSERT INTO revision VALUES (?,?,?)",
+                                   ((key, row["revision"], canonical(row)) for key, row in records.items()))
+            ledger._db.executemany("INSERT INTO tombstone VALUES (?,?)", tombstones.items())
+        # Publish the policy database before the asset index becomes available.
+        for name in (SOURCE_DB, "objects", DATABASE):
+            os.replace(staged / name, destination / name)
+        _flush_directory(destination)
+        _flush_directory(destination.parent)
     return tuple(sorted(records))
