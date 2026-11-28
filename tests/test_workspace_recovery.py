@@ -135,3 +135,34 @@ with SourceLedger.open(root, workspace) as sources, FixtureOutbox.open(db, works
             inspect_workspace(self.snapshot)
         with SourceLedger.open(self.root, WS) as current:
             self.assertEqual(current.latest(A)["digest"], DIGEST)
+
+    def test_checkpoint_holds_both_ledger_writers_before_reading_sources(self):
+        import sqlite3
+        from contextlib import closing
+        from contentflow import workspace_recovery
+        capture = workspace_recovery.source_recovery._capture_sources
+
+        def try_competing_writes(*args):
+            for path in (self.root / "sources.sqlite3", self.live):
+                with closing(sqlite3.connect(path, timeout=0)) as db:
+                    with self.assertRaises(sqlite3.OperationalError):
+                        db.execute("BEGIN IMMEDIATE")
+            capture(*args)
+
+        with SourceLedger.open(self.root, WS) as sources, FixtureOutbox.open(self.live, WS) as outbox:
+            with patch.object(workspace_recovery.source_recovery, "_capture_sources", try_competing_writes):
+                workspace_recovery.checkpoint_workspace(sources, outbox, self.snapshot, NOW)
+        self.assertEqual(workspace_recovery.inspect_workspace(self.snapshot)["workspace"], str(WS))
+
+    def test_resealed_invalid_workspace_uuid_is_rejected(self):
+        from contentflow.domain import canonical, decode, digest
+        from contentflow.workspace_recovery import checkpoint_workspace, inspect_workspace
+        with SourceLedger.open(self.root, WS) as sources, FixtureOutbox.open(self.live, WS) as outbox:
+            checkpoint_workspace(sources, outbox, self.snapshot, NOW)
+        marker = self.snapshot / "workspace.json"
+        document = decode(marker.read_bytes())
+        document["body"]["workspace"] = []
+        document["sha256"] = digest(document["body"])
+        marker.write_bytes(canonical(document))
+        with self.assertRaises(ValueError):
+            inspect_workspace(self.snapshot)
