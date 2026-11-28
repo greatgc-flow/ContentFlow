@@ -73,12 +73,14 @@ def checkpoint(store, destination: Path):
                 (destination / folder).mkdir()
             for digest in sorted(assets):
                 _put_file(_path(destination, digest), store.read(digest))
+        with database.open("r+b") as stream:
+            os.fsync(stream.fileno())
+        for folder in reversed(_directories(assets)):
+            _flush_directory(destination / folder)
         _flush_directory(destination)
         _put_file(destination / MARKER, canonical({"format": SCHEMA_VERSION, "assets": assets,
                                                   "index_sha256": _file_hash(database)}))
         verify(destination)
-        for folder in reversed(_directories(assets)):
-            _flush_directory(destination / folder)
         _flush_directory(destination)
         _flush_directory(destination.parent)
 
