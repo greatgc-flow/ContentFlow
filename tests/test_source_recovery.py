@@ -101,3 +101,42 @@ class SourceRecoveryTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 restore_sources(live, snapshot, restored, NOW)
             self.assertFalse(restored.exists())
+
+    def test_broad_asset_checkpoint_is_blocked_and_revised_rights_win(self):
+        from contentflow.checkpoint import checkpoint
+        from contentflow.sources import SourceLedger, checkpoint_sources, restore_sources
+        snapshot, restored = self.base / "snapshot", self.base / "restored"
+        with SourceLedger.create(self.root, self.workspace) as live:
+            self.add(live, self.first, self.first_digest)
+            checkpoint_sources(live, snapshot, NOW)
+            self.add(live, self.first, self.first_digest, expected=1, rights=("read",))
+            with AssetStore.open(self.root) as store:
+                with self.assertRaises(ValueError):
+                    checkpoint(store, self.base / "bypass")
+            self.assertEqual(restore_sources(live, snapshot, restored, NOW), ())
+        self.assertFalse((self.base / "bypass").exists())
+
+    def test_standalone_cli_source_round_trip(self):
+        import os
+        import subprocess
+        import sys
+        import json
+        from test_c1 import ROOT
+
+        def run(action, *extra):
+            invocation = [sys.executable, "-B", "-m", "contentflow", "sources", action,
+                          str(self.root), "--workspace-id", str(self.workspace), *map(str, extra)]
+            proc = subprocess.run(invocation, cwd=self.base, env=dict(os.environ, PYTHONPATH=str(ROOT)),
+                                  capture_output=True, text=True, timeout=15)
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            return json.loads(proc.stdout)
+
+        self.assertEqual(run("init")["status"], "INITIALIZED")
+        self.assertEqual(
+            run("record", self.first, "--sha256", self.first_digest, "--expected", 0,
+                "--acquired-at", "2025-01-01T00:00:00Z", "--retain-until", "2099-01-01T00:00:00Z",
+                "--license-ref", "fixture-license", "--allow-backup")["revision"], 1)
+        snapshot, restored = self.base / "checkpoint", self.base / "restored"
+        self.assertEqual(run("checkpoint", snapshot)["status"], "CHECKPOINTED")
+        self.assertEqual(run("restore", snapshot, restored)["sources"], [str(self.first)])
+        self.assertEqual(run("retire", self.first, "--expected", 1)["revision"], 2)
