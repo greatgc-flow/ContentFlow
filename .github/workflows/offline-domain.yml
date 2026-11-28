@@ -40,7 +40,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: greatgc-flow/Engram
-          ref: c041183b642f92a6a557851d95cc1b292376523b
+          ref: d3e68150759400d4e6e3018f9ae1d2703f39ed01
           path: _paired-engram
           persist-credentials: false
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
