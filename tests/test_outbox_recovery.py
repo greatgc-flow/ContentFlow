@@ -65,3 +65,29 @@ class OutboxRecoveryTests(unittest.TestCase):
             with self.assertRaises(FileExistsError):
                 restore_review(live, self.snapshot, self.review)
             self.assertEqual(self.review.read_bytes(), b"existing bytes")
+
+    def test_offline_console_exposes_review_without_dispatch(self):
+        import json
+        import os
+        import subprocess
+        import sys
+        from test_c1 import ROOT
+
+        def run(verb, *args):
+            proc = subprocess.run([sys.executable, "-B", "-m", "contentflow", "outbox", verb,
+                                   *map(str, args)], cwd=self.root, capture_output=True,
+                                  env=dict(os.environ, PYTHONPATH=str(ROOT)), text=True, timeout=15)
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            return json.loads(proc.stdout)
+
+        with FixtureOutbox.create(self.live, WS, CAP) as live:
+            live.prepare(A, {}, BOUND)
+        self.assertEqual(run("checkpoint", self.live, self.snapshot, "--workspace-id", WS)["status"],
+                         "CHECKPOINTED")
+        with FixtureOutbox.open(self.live, WS) as live:
+            live.claim(A)
+        self.assertEqual(run("restore-review", self.live, self.snapshot, self.review,
+                             "--workspace-id", WS)["status"], "RESTORED_FOR_REVIEW")
+        view = run("inspect-review", self.review)
+        self.assertFalse(view["execution_authorized"])
+        self.assertEqual(view["operations"][str(A)]["state"], "UNKNOWN")
