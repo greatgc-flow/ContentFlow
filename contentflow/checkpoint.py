@@ -7,7 +7,7 @@ import shutil
 import sqlite3
 from tempfile import TemporaryDirectory
 
-from .assets import (DATABASE, MAX_ASSET, _check_digest, _connect, _directory,
+from .assets import (DATABASE, MAX_ASSET, SOURCE_DB, _check_digest, _connect, _directory,
                      _flush_directory, _kind, _validate, _verified)
 from .domain import MAX_BYTES, canonical, decode
 
@@ -64,6 +64,8 @@ def checkpoint(store, destination: Path):
     with _new_directory(destination):
         database = destination / DATABASE
         with store._transaction():
+            if _kind(store.root / SOURCE_DB) is not None:
+                raise ValueError("source-managed workspace requires a policy-aware checkpoint")
             with (closing(_connect(store.root / DATABASE, "ro")) as source,
                   closing(sqlite3.connect(database)) as target):
                 source.backup(target)

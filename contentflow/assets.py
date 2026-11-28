@@ -11,6 +11,7 @@ from tempfile import NamedTemporaryFile
 MAX_ASSET = 16 * 1024 * 1024
 APP_ID = 0x43464131
 DATABASE = "assets.sqlite3"
+SOURCE_DB = "sources.sqlite3"
 _DIGEST = re.compile(r"[0-9a-f]{64}")
 _ASSET_TABLE = ("CREATE TABLE asset (digest TEXT PRIMARY KEY, byte_count INTEGER NOT NULL "
                 f"CHECK (byte_count BETWEEN 0 AND {MAX_ASSET})) STRICT")
