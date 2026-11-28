@@ -16,16 +16,17 @@ def main(argv=None):
     commands = parser.add_subparsers(dest="command", required=True)
     brief = commands.add_parser("brief").add_subparsers(required=True).add_parser("preview")
     brief.add_argument("--json", action="store_true")
-    from . import assets_cli, sources_cli
+    from . import assets_cli, outbox_cli, sources_cli
     assets_cli.register(commands.add_parser("assets"))
     sources_cli.register(commands.add_parser("sources"))
+    outbox_cli.register(commands.add_parser("outbox"))
     run = commands.add_parser("run")
     run.add_argument("--workflow", type=Path, required=True)
     run.add_argument("--dry-run", action="store_true", required=True)
     run.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
     envelope = {"request_id": str(uuid4()), "warnings": []}
-    local_commands = {"assets": assets_cli.run, "sources": sources_cli.run}
+    local_commands = {"assets": assets_cli.run, "sources": sources_cli.run, "outbox": outbox_cli.run}
     if args.command in local_commands:
         try:
             print(json.dumps(envelope | local_commands[args.command](args)))
