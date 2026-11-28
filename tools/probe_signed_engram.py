@@ -112,7 +112,7 @@ def probe(engram, wheel_path, expected_wheel, openssl):
     sys.path.insert(0, str(engram / "tools/feasibility"))
     from pack_catalog import load_fixtures
     from optional_pack_group import initialize_fixture, recover
-    from optional_pack_release import TrustPolicy, admit, install_signed, launch_adapter, launch_signed
+    from optional_pack_release import TrustPolicy, admit, install_signed, launch_adapter, launch_signed, remove_signed
     from core.env_ops import SimulatedCrash
 
     descriptor_path = engram / "_sys/tests/fixtures/optional-pack/cf.descriptor.json"
@@ -196,10 +196,33 @@ def probe(engram, wheel_path, expected_wheel, openssl):
         system.rename(moved)
         _check(json.loads(launch_signed(moved, descriptor, release, exe, pin, policy=policy, now=now))
                ["relative_decrease_percent"] == "25", "signed generation failed after root move")
+        retained_roots = (live.relative_to(system), original.parent.relative_to(system), review.relative_to(system))
+
+        def retained_inventory():
+            return {p.relative_to(moved): _bytes_digest(p.read_bytes())
+                    for directory in retained_roots for p in (moved / directory).rglob("*") if p.is_file()}
+
+        before = retained_inventory()
+        _check(bool(before), "missing fixture workspace and checkpoint inventory")
+        _check(remove_signed(moved, descriptor, 1, release, policy=policy, now=now)["phase"] == "COMMITTED",
+               "signed retained removal failed")
+        try:
+            launch_signed(moved, descriptor, release, exe, pin, policy=policy, now=now)
+        except ValueError as exc:
+            _check("active signed generation" in str(exc), "removed generation was not checked")
+        else:
+            raise ValueError("a retired package was launchable")
+        _check(retained_inventory() == before, "removal changed workspace, checkpoint or recovery bytes")
+        _check(install_signed(moved, descriptor, 2, "runtime-a", release, policy=policy, now=now,
+                              reuse_retained=True)["phase"] == "COMMITTED", "retained reinstall failed")
+        _check(json.loads(launch_signed(moved, descriptor, release, exe, pin, policy=policy, now=now))
+               ["relative_decrease_percent"] == "25", "reinstalled wheel did not run")
+        _check(retained_inventory() == before, "reinstall changed workspace, checkpoint or recovery bytes")
         _check(not (moved / "AI").exists(), "ContentFlow depended on an AI slot")
         return {"wheel_sha256": expected_wheel, "release_sha256": release.manifest_sha256,
                 "brief_percent": "25", "adapter": ["health", "checkpoint", "restore"],
-                "pending": "UNKNOWN", "rollback": "ROLLED_BACK", "root_move": "PASS"}
+                "pending": "UNKNOWN", "rollback": "ROLLED_BACK", "root_move": "PASS",
+                "remove_reinstall": "PASS", "retained_file_count": len(before)}
 
 
 def main():
