@@ -58,7 +58,8 @@ def _read(root):
     body = record["body"]
     if (digest(body) != record["sha256"] or type(body) is not dict
             or body.keys() != {"format", "workspace", "members"}
-            or body["format"] not in (_CHECKPOINT, _REVIEW) or body["members"] != _members(root)):
+            or body["format"] not in (_CHECKPOINT, _REVIEW)
+            or not isinstance(body["workspace"], str) or body["members"] != _members(root)):
         raise ValueError("workspace bundle manifest mismatch")
     workspace = UUID(body["workspace"])
     if workspace.version != 4 or str(workspace) != body["workspace"]:
