@@ -16,17 +16,19 @@ def main(argv=None):
     commands = parser.add_subparsers(dest="command", required=True)
     brief = commands.add_parser("brief").add_subparsers(required=True).add_parser("preview")
     brief.add_argument("--json", action="store_true")
-    from . import assets_cli
+    from . import assets_cli, sources_cli
     assets_cli.register(commands.add_parser("assets"))
+    sources_cli.register(commands.add_parser("sources"))
     run = commands.add_parser("run")
     run.add_argument("--workflow", type=Path, required=True)
     run.add_argument("--dry-run", action="store_true", required=True)
     run.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
     envelope = {"request_id": str(uuid4()), "warnings": []}
-    if args.command == "assets":
+    local_commands = {"assets": assets_cli.run, "sources": sources_cli.run}
+    if args.command in local_commands:
         try:
-            print(json.dumps(envelope | assets_cli.run(args)))
+            print(json.dumps(envelope | local_commands[args.command](args)))
         except (OSError, ValueError, sqlite3.Error) as exc:
             print(json.dumps(envelope | {"status": "INVALID_INPUT", "reason": str(exc)}), file=sys.stderr)
             return 2
